@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eaf4ff;
+}
+
+.login-page {
+    position: relative;
+    width: 100%;
+    max-width: 832px;
+    margin: 0 auto;
+}
+
+.login-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.login-form {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Kolom email */
+.login-form input {
+    position: absolute;
+    left: 7%;
+    width: 86%;
+    height: 5.5%;
+    padding: 0 15%;
+    border: 2px solid transparent;
+    border-radius: 24px;
+    background: transparent;
+    color: #101447;
+    font-size: clamp(14px, 3.5vw, 28px);
+    outline: none;
+}
+
+#email {
+    top: 54.5%;
+}
+
+#password {
+    top: 61.2%;
+}
+
+/* Tampilkan garis tipis ketika kolom dipilih */
+.login-form input:focus {
+    border-color: rgba(80, 150, 255, 0.55);
+}
+
+/* Area tombol Masuk */
+.login-form button {
+    position: absolute;
+    left: 7%;
+    top: 69.3%;
+    width: 86%;
+    height: 5.8%;
+    padding: 0;
+    border: 0;
+    border-radius: 24px;
+    background: transparent;
+    cursor: pointer;
+}

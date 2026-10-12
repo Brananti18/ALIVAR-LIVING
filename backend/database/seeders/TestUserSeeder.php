@@ -18,5 +18,23 @@ class TestUserSeeder extends Seeder
                 'role' => 'admin',
             ]
         );
+
+        User::updateOrCreate(
+            ['email' => 'user@test.com'],
+            [
+                'name' => 'User Alivare',
+                'password' => Hash::make('User123!'),
+                'role' => 'user',
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'pemilik@test.com'],
+            [
+                'name' => 'Pemilik Alivare',
+                'password' => Hash::make('Pemilik123!'),
+                'role' => 'owner',
+            ]
+        );
     }
 }
