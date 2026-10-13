@@ -11,13 +11,13 @@
     <span>Properti</span>
 </a>
 
-<a class="nav-link {{ request()->routeIs('dashboard.kamar') ? 'active' : '' }}"
-   href="{{ route('dashboard.kamar') }}">
+<a href="{{ route('dashboard.kamar') }}" class="nav-link {{ request()->routeIs('dashboard.kamar') ? 'active' : '' }}">
     <span class="nav-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="16" rx="2"/>
-            <path d="M3 13h18M7 9h3a2 2 0 0 1 2 2v2H5v-2a2 2 0 0 1 2-2z"/>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 4v16"/>
+            <path d="M2 8h18a2 2 0 0 1 2 2v10"/>
+            <path d="M2 17h20"/>
+            <circle cx="6" cy="11" r="2"/>
         </svg>
     </span>
     <span>Kamar</span>
@@ -49,11 +49,3 @@
     <span>Tagihan</span>
 </a>
 
-<div class="nav-label" style="margin-top:25px">AKUN</div>
-<form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button class="nav-link" type="submit"
-            style="border:0;background:white;width:100%;text-align:left;cursor:pointer">
-        ↪ Keluar
-    </button>
-</form>

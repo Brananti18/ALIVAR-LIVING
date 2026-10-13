@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,245 +7,214 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
+        :root {
+            --primary: #2563eb; 
+            --primary-hover: #1d4ed8;
+            --primary-soft: #eff6ff;
+            --navy: #0f172a; 
+            --navy-light: #1e293b;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-500: #64748b;
+            --slate-800: #1e293b;
+            --bg-body: #f8fafc;
+            --card-bg: #ffffff;
+            
+            --success: #10b981;
+            --success-bg: #ecfdf5;
+            --warning: #f59e0b;
+            --warning-bg: #fffbeb;
+            --danger: #ef4444;
+            --danger-bg: #fef2f2;
+            
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-modal: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
         * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: #101d4d;
-            background: #f5f8fe;
-            font-size: 14px;
-        }
-        button, input, select { font: inherit; }
-        .topbar {
-            height: 76px;
-            padding: 0 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: white;
-            border-bottom: 1px solid #e4ebf7;
-        }
-       
-
-.brand {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    width: 125px;
-}
-
-.brand img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 58px;
-    object-fit: contain;
-}
-
-
-        .layout { display: flex; min-height: calc(100vh - 76px); }
-        .sidebar {
-            width: 210px;
-            flex-shrink: 0;
-            padding: 25px 12px;
-            background: white;
-            border-right: 1px solid #e4ebf7;
-        }
-        .nav-label {
-            margin: 8px 12px 12px;
-            color: #9aa6bd;
-            font-size: 11px;
-            font-weight: bold;
-        }
-        .nav-link {
-            display: block;
-            padding: 13px;
-            margin-bottom: 6px;
-            border-radius: 10px;
-            color: #667593;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .nav-link.active { background: #eaf2ff; color: #0866f5; }
         
-.nav-icon {
-    width: 20px;
-    height: 20px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+        body { 
+            margin: 0; 
+            background: var(--bg-body); 
+            color: var(--navy); 
+            font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
 
-.nav-icon svg {
-    width: 18px;
-    height: 18px;
-    display: block;
-}
+        button, input, select { font: inherit; } 
+        button { cursor: pointer; }
 
-.sidebar .nav-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        /* ====== HEADER ====== */
+        .topbar { 
+            min-height: 70px; padding: 0 24px; 
+            display: flex; align-items: center; justify-content: space-between; gap: 32px; 
+            background: var(--card-bg); border-bottom: 1px solid var(--slate-200); 
+            position: sticky; top: 0; z-index: 30; 
+        }
+        .brand { display: flex; align-items: center; justify-content: center; height: 100%; width: 170px; flex-shrink: 0; }
+        .brand img { height: 44px !important; width: auto !important; max-width: 100% !important; object-fit: contain; }
 
-        .main { flex: 1; min-width: 0; padding: 30px; }
-        .heading {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 24px;
+        /* ====== LAYOUT & SIDEBAR ====== */
+        .layout { display: flex; min-height: calc(100vh - 70px); }
+        .sidebar { width: 220px; padding: 24px 16px; background: var(--card-bg); border-right: 1px solid var(--slate-200); flex-shrink: 0; }
+        .nav-label { padding: 8px 12px; color: var(--slate-500); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-link { 
+            display: flex; align-items: center; flex-direction: row; gap: 12px; 
+            width: 100%; min-height: 44px; padding: 10px 12px; margin-bottom: 4px; 
+            border-radius: var(--radius-md); text-decoration: none; 
+            color: var(--slate-500); font-weight: 500; font-size: 14px;
+            transition: 0.2s;
         }
-        h1 { margin: 0 0 8px; font-size: 32px; }
-        .muted { color: #71809f; }
-        .primary {
-            border: 0;
-            border-radius: 10px;
-            padding: 13px 17px;
-            background: #0866f5;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
+        .nav-link:hover { background: var(--bg-body); color: var(--navy); }
+        .nav-link.active { color: var(--primary); background: var(--primary-soft); font-weight: 600; }
+        .nav-link.active .nav-icon { color: var(--primary); }
+        .nav-icon { 
+            width: 20px; height: 20px; flex: 0 0 20px; 
+            display: inline-flex; align-items: center; justify-content: center; 
+            color: var(--slate-500); 
         }
-        .panel {
-            background: white;
-            padding: 22px;
-            border: 1px solid #e4ebf7;
-            border-radius: 16px;
+        .nav-icon svg { width: 20px; height: 20px; max-width: 20px; max-height: 20px; display: block; flex-shrink: 0; }
+
+        .main { flex: 1; min-width: 0; max-width: 1280px; margin: 0 auto; padding: 32px; }
+
+        /* ====== HEADING & BUTTONS ====== */
+        .page-heading { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+        h1 { margin: 0 0 4px; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+        .subtitle { color: var(--slate-500); margin: 0; font-size: 14px; }
+        
+        .btn { 
+            display: inline-flex !important; flex-direction: row !important; align-items: center !important; 
+            justify-content: center !important; gap: 8px !important; padding: 10px 18px !important; 
+            border-radius: var(--radius-md) !important; font-size: 13px !important; font-weight: 600 !important; 
+            text-decoration: none !important; transition: all 0.2s ease !important; white-space: nowrap !important; cursor: pointer !important;
         }
-        .filters {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 12px;
-            margin: 20px 0;
+        .btn svg { width: 16px !important; height: 16px !important; max-width: 16px !important; max-height: 16px !important; flex: 0 0 16px !important; display: inline-block !important; margin: 0 !important; }
+        .btn-primary { background-color: var(--primary) !important; color: #ffffff !important; border: 1px solid var(--primary) !important; box-shadow: var(--shadow-sm) !important; }
+        .btn-primary:hover { background-color: var(--primary-hover) !important; transform: translateY(-1px); box-shadow: var(--shadow-md) !important; }
+        .btn-secondary { background-color: #ffffff !important; color: var(--navy) !important; border: 1px solid var(--slate-200) !important; }
+        .btn-secondary:hover { background-color: var(--slate-100) !important; }
+        .btn-danger { background-color: #ffffff !important; color: var(--danger) !important; border: 1px solid #fecaca !important; }
+        .btn-danger:hover { background-color: var(--danger-bg) !important; border-color: #fca5a5 !important; }
+        .btn-sm { padding: 7px 12px !important; font-size: 12px !important; gap: 6px !important; }
+        .btn-sm svg { width: 14px !important; height: 14px !important; max-width: 14px !important; max-height: 14px !important; flex: 0 0 14px !important; }
+
+        /* Alerts */
+        .alert { border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 24px; font-size: 14px; background: var(--success-bg); color: #065f46; border: 1px solid #a7f3d0; }
+
+        /* ====== PANEL & FILTER ====== */
+        .panel { background: var(--card-bg); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+        .panel-heading { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--slate-200); }
+        .panel-heading h2 { font-size: 16px; font-weight: 700; margin: 0; }
+        .panel-heading .subtitle { font-size: 13px; font-weight: 500; }
+        
+        .filters { display: flex; gap: 16px; padding: 16px 24px; background: #fcfdfd; border-bottom: 1px solid var(--slate-200); }
+        .filter-search-wrapper { position: relative; flex: 1; }
+        .filter-search-wrapper svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--slate-500); width: 16px; height: 16px; }
+        .filters input, .filters select { 
+            width: 100%; padding: 9px 14px; border: 1px solid var(--slate-200); 
+            border-radius: var(--radius-md); background: var(--card-bg); 
+            color: var(--navy); font-size: 13px; outline: none; transition: 0.2s;
         }
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #dce5f4;
-            border-radius: 10px;
-            background: #f9fbff;
-            color: #101d4d;
-        }
+        .filters input { padding-left: 38px; }
+        .filters select { min-width: 180px; width: auto; cursor: pointer; }
+        .filters input:focus, .filters select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        /* ====== TABEL KAMAR ====== */
         .table-wrap { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 700px; }
-        th, td {
-            padding: 15px 12px;
-            text-align: left;
-            border-bottom: 1px solid #e4ebf7;
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { padding: 14px 24px; background: #fcfdfd; color: var(--slate-500); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--slate-200); white-space: nowrap; }
+        td { padding: 16px 24px; color: var(--navy); font-size: 14px; border-bottom: 1px solid var(--slate-200); vertical-align: middle; }
+        tbody tr { transition: background-color 0.2s; }
+        tbody tr:hover { background-color: var(--slate-50); }
+        tbody tr:last-child td { border-bottom: none; }
+        
+        /* Status Badges */
+        .status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; white-space: nowrap; text-transform: capitalize; }
+        .status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+        .status.tersedia { background: var(--success-bg); color: var(--success); }
+        .status.terisi { background: var(--primary-soft); color: var(--primary); }
+        .status.maintenance { background: var(--warning-bg); color: #d97706; }
+
+        .actions { display: flex; gap: 8px; align-items: center; }
+
+        /* Empty State */
+        .empty { padding: 60px 20px; color: var(--slate-500); text-align: center; background: var(--bg-body); border-top: 1px dashed var(--slate-200); }
+
+        /* ====== MODAL ====== */
+        .modal-backdrop { 
+            display: none; position: fixed; inset: 0; z-index: 100; 
+            background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
+            padding: 20px; align-items: center; justify-content: center; overflow-y: auto; 
         }
-        th { color: #71809f; font-size: 12px; }
-        .status {
-            display: inline-block;
-            padding: 6px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
+        .modal { 
+            background: var(--card-bg); width: 100%; max-width: 560px; padding: 28px; 
+            border-radius: var(--radius-xl); box-shadow: var(--shadow-modal); position: relative;
         }
-        .tersedia { background: #e5f8ee; color: #079552; }
-        .terisi { background: #eaf2ff; color: #0866f5; }
-        .maintenance { background: #fff2df; color: #e78a00; }
-        .actions { display: flex; gap: 7px; }
-        .small-button {
-            padding: 8px 10px;
-            border: 1px solid #e2eafa;
-            border-radius: 8px;
-            cursor: pointer;
-            background: #f1f5fd;
-            color: #101d4d;
+        .modal h2 { margin: 0 0 4px; font-size: 18px; font-weight: 700; }
+        .modal-heading { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+        .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 0; }
+        .field.full { grid-column: 1 / -1; }
+        .field label { font-weight: 600; font-size: 13px; color: var(--navy); margin-bottom: 0; }
+        .field input, .field select { 
+            width: 100%; padding: 10px 14px; border: 1px solid var(--slate-200); 
+            border-radius: var(--radius-md); background: var(--card-bg); font-size: 13px;
+            transition: 0.2s; outline: none;
         }
-        .delete { background: #fff0f0; color: #e33838; border-color: #ffe2e2; }
-        .alert {
-            margin-bottom: 16px;
-            padding: 12px 15px;
-            border-radius: 10px;
-            background: #e5f8ee;
-            color: #087b48;
-        }
-        .error { color: #d22; font-size: 12px; margin-top: 5px; }
-        .empty { text-align: center; padding: 35px; color: #71809f; }
-        .modal-backdrop {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 10;
-            background: #101d4d88;
-            padding: 20px;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal {
-            width: 100%;
-            max-width: 560px;
-            max-height: 90vh;
-            overflow-y: auto;
-            background: white;
-            padding: 25px;
-            border-radius: 16px;
-        }
-        .modal h2 { margin-top: 0; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .field { margin-bottom: 15px; }
-        .field label { display: block; margin-bottom: 7px; font-weight: bold; }
-        .full { grid-column: 1 / -1; }
-        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
-        .secondary {
-            padding: 12px 16px;
-            border: 1px solid #e2eafa;
-            border-radius: 10px;
-            background: white;
-            cursor: pointer;
-        }
-        @media (max-width: 760px) {
-            .topbar { height: 64px; padding: 0 16px; }
-            .layout { min-height: calc(100vh - 64px); }
+        .field input:focus, .field select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--slate-200); }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 768px) {
+            .topbar { padding: 0 16px; }
             .sidebar { display: none; }
-            .main { padding: 20px 14px; }
-            .heading { align-items: flex-start; flex-direction: column; }
-            h1 { font-size: 27px; }
-            .filters { grid-template-columns: 1fr; }
-            .panel { padding: 14px; }
+            .main { padding: 20px 16px 80px; }
+            .page-heading { flex-direction: column; gap: 16px; }
+            .page-heading .btn { width: 100%; }
+            .filters { flex-direction: column; padding: 16px; }
+            .filters select { width: 100%; }
             .form-grid { grid-template-columns: 1fr; }
-            .full { grid-column: auto; }
+            .field.full { grid-column: auto; }
         }
     </style>
 </head>
 <body>
-<header class="topbar">
-    
-<a href="{{ route('dashboard.pemilik') }}" class="brand">
-    <img src="{{ asset('images/alivare-logo.png') }}" alt="Alivare">
-</a>
 
-    <div>
-        <span style="margin-right:16px">Pengelolaan Kamar</span>
-        <a href="{{ route('dashboard.pemilik') }}">Kembali ke Properti</a>
-    </div>
+<header class="topbar">
+    <a href="{{ route('dashboard.pemilik') }}" class="brand">
+        <img src="{{ asset('images/alivare-logo.png') }}" alt="Logo Alivare">
+    </a>
+    <div></div>
 </header>
 
 <div class="layout">
     <aside class="sidebar">
-    @include('components.sidebar-menu')
-</aside>
+        @include('components.sidebar-menu')
+    </aside>
 
     <main class="main">
-        <div class="heading">
+        <section class="page-heading">
             <div>
                 <h1>Daftar Kamar</h1>
-                <p class="muted">Kelola kamar dari properti yang lu miliki.</p>
+                <p class="subtitle">Kelola kamar dari properti yang Anda miliki.</p>
             </div>
-            <button class="primary" type="button" onclick="openAddModal()">
-                + Tambah Kamar
+            <button class="btn btn-primary" type="button" onclick="openAddModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                Tambah Kamar
             </button>
-        </div>
+        </section>
 
         @if (session('success'))
             <div class="alert">{{ session('success') }}</div>
         @endif
 
         @if ($errors->any())
-            <div class="alert" style="background:#ffe8e8;color:#b42323">
+            <div class="alert" style="background:var(--danger-bg);color:#991b1b;border-color:#fecaca">
                 <ul style="margin:0;padding-left:20px">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -256,13 +224,16 @@
         @endif
 
         <section class="panel">
-            <div style="display:flex;justify-content:space-between;gap:12px;align-items:center">
-                <h2 style="margin:0;font-size:20px">Data Kamar</h2>
-                <span class="muted">{{ $rooms->count() }} kamar</span>
+            <div class="panel-heading">
+                <h2>Data Kamar</h2>
+                <span class="subtitle">{{ $rooms->count() }} kamar</span>
             </div>
 
             <div class="filters">
-                <input id="searchRoom" type="search" placeholder="Cari nomor kamar atau properti...">
+                <div class="filter-search-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <input id="searchRoom" type="search" placeholder="Cari nomor kamar atau properti...">
+                </div>
                 <select id="filterProperty">
                     <option value="">Semua Properti</option>
                     @foreach ($properties as $property)
@@ -280,13 +251,13 @@
             <div class="table-wrap">
                 <table id="roomTable">
                     <thead>
-                    <tr>
-                        <th>Nomor Kamar</th>
-                        <th>Properti</th>
-                        <th>Harga Sewa</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
+                        <tr>
+                            <th>Nomor Kamar</th>
+                            <th>Properti</th>
+                            <th>Harga Sewa</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
                     </thead>
                     <tbody>
                     @forelse ($rooms as $room)
@@ -303,28 +274,27 @@
                             </td>
                             <td>
                                 <div class="actions">
-                                    <button type="button" class="small-button"
+                                    <button type="button" class="btn btn-secondary btn-sm"
                                         onclick="openEditModal(
                                             '{{ $room->id }}',
                                             @js($room->room_number),
                                             '{{ $room->price }}',
                                             '{{ $room->status }}'
-                                        )">Edit</button>
+                                        )">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Edit
+                                    </button>
 
-                                    <form method="POST"
-                                        action="{{ route('rooms.destroy', $room) }}"
-                                        onsubmit="return confirm('Yakin ingin menghapus kamar ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="small-button delete">Hapus</button>
-                                    </form>
+                                  <button type="button" class="btn btn-danger btn-sm"
+    onclick="openDeleteModal('{{ route('rooms.destroy', $room) }}', 'Kamar {{ $room->room_number }}', 'Kamar')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Hapus
+</button>
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
                             <td colspan="5" class="empty">
-                                Belum ada kamar. Klik Tambah Kamar untuk memulai.
+                                Belum ada data kamar. Klik <strong>Tambah Kamar</strong> untuk mulai menambahkan.
                             </td>
                         </tr>
                     @endforelse
@@ -332,16 +302,22 @@
                 </table>
             </div>
             <div id="noResults" class="empty" style="display:none">
-                Tidak ada kamar yang cocok dengan pencarian.
+                Pencarian tidak ditemukan. Coba gunakan nomor kamar atau filter lain.
             </div>
         </section>
     </main>
 </div>
 
+<!-- MODAL TAMBAH / EDIT KAMAR -->
 <div class="modal-backdrop" id="roomModal">
     <div class="modal">
-        <h2 id="modalTitle">Tambah Kamar</h2>
-        <p class="muted">Isi informasi kamar di bawah ini.</p>
+        <div class="modal-heading">
+            <div>
+                <h2 id="modalTitle">Tambah Kamar</h2>
+                <p class="subtitle" style="font-size:13px; margin-top:2px;">Isi informasi kamar di bawah ini.</p>
+            </div>
+            <button type="button" onclick="closeRoomModal()" style="border:0; background:transparent; font-size:20px; color:var(--slate-500); cursor:pointer;">&times;</button>
+        </div>
 
         <form id="roomForm" method="POST" action="{{ route('rooms.store') }}">
             @csrf
@@ -360,12 +336,12 @@
 
                 <div class="field">
                     <label for="room_number">Nomor Kamar</label>
-                    <input name="room_number" id="room_number" maxlength="255" required>
+                    <input name="room_number" id="room_number" maxlength="255" required placeholder="Contoh: 01">
                 </div>
 
                 <div class="field">
-                    <label for="price">Harga Sewa per Bulan (Rp)</label>
-                    <input type="number" name="price" id="price" min="0" step="1" required>
+                    <label for="price">Harga Sewa / Bulan (Rp)</label>
+                    <input type="number" name="price" id="price" min="0" step="1" required placeholder="Contoh: 2000000">
                 </div>
 
                 <div class="field full">
@@ -379,8 +355,8 @@
             </div>
 
             <div class="modal-actions">
-                <button class="secondary" type="button" onclick="closeRoomModal()">Batal</button>
-                <button class="primary" id="saveButton" type="submit">Simpan Kamar</button>
+                <button class="btn btn-secondary" type="button" onclick="closeRoomModal()">Batal</button>
+                <button class="btn btn-primary" id="saveButton" type="submit">Simpan Kamar</button>
             </div>
         </form>
     </div>
@@ -421,6 +397,9 @@
         document.getElementById('property_id').required = true;
     }
 
+    roomModal.addEventListener('click', e => { if (e.target === roomModal) closeRoomModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRoomModal(); });
+
     document.getElementById('searchRoom').addEventListener('input', filterRooms);
     document.getElementById('filterProperty').addEventListener('change', filterRooms);
     document.getElementById('filterStatus').addEventListener('change', filterRooms);
@@ -447,5 +426,7 @@
                 ? 'block' : 'none';
     }
 </script>
+
+@include('components.delete-confirm-modal')
 </body>
 </html>
