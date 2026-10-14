@@ -144,8 +144,42 @@
 
         .actions { display: flex; gap: 8px; align-items: center; }
 
-        /* Empty State */
-        .empty { padding: 60px 20px; color: var(--slate-500); text-align: center; background: var(--bg-body); border-top: 1px dashed var(--slate-200); }
+        /* Empty State Standard ALIVARE */
+.empty-state { 
+    padding: 48px 20px; 
+    color: var(--slate-500); 
+    text-align: center; 
+    background: var(--bg-body); 
+    border: 1px dashed var(--slate-200); 
+    border-radius: var(--radius-lg); 
+    margin: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state svg { 
+    width: 36px; 
+    height: 36px; 
+    color: #94a3b8; 
+    margin-bottom: 12px; 
+    display: block;
+}
+
+.empty-state strong { 
+    display: block; 
+    color: var(--navy); 
+    font-size: 15px; 
+    margin-bottom: 4px; 
+    font-weight: 600; 
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--slate-500);
+}
 
         /* ====== MODAL ====== */
         .modal { 
@@ -183,6 +217,45 @@
             .form-grid { grid-template-columns: 1fr; }
             .field.full { grid-column: auto; }
         }
+
+/* Empty state: samakan dengan halaman Properti */
+.empty-state {
+    padding: 60px 20px;
+    color: var(--slate-500);
+    text-align: center;
+    background: var(--bg-body);
+    border: 1px dashed var(--slate-200);
+    border-radius: var(--radius-lg);
+    margin: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state svg {
+    width: 36px;
+    height: 36px;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.empty-state strong {
+    display: block;
+    color: var(--navy);
+    font-size: 15px;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--slate-500);
+}
+
     </style>
 </head>
 <body>
@@ -191,7 +264,9 @@
     <a class="brand" href="{{ route('dashboard.pemilik') }}">
         <img src="{{ asset('images/alivare-logo.png') }}" alt="Logo Alivare">
     </a>
-    <div></div>
+
+    <!-- INI BARIS YANG DIPANGGIL -->
+    @include('components.topbar-actions')
 </header>
 
 <div class="layout">
@@ -281,8 +356,25 @@
                                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Edit
                                         </button>
 
-                                        <button type="button" class="btn btn-danger btn-sm"
+                                    
+</button>
+
+
+<a href="{{ route('dashboard.profil-sewa', ['tenant' => $tenant->id]) }}"
+   class="btn btn-secondary btn-sm">
+    <svg viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+        <circle cx="12" cy="12" r="3"/>
+    </svg>
+    Profil Sewa
+</a>
+
+
+<button type="button" class="btn btn-danger btn-sm"
     onclick="openDeleteModal('{{ route('tenants.destroy', $tenant) }}', @js($tenant->name), 'Penyewa')">
+   
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Hapus
 </button>
                                     </div>
@@ -295,6 +387,24 @@
                                 </td>
                             </tr>
                         @endforelse
+                        <tr id="tenantNoResults" style="display:none">
+    <td colspan="6" style="padding:0; border:0;">
+        <div class="empty-state">
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.5"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.3-4.3"/>
+            </svg>
+            <strong>Pencarian tidak ditemukan</strong>
+            <p>Coba gunakan kata kunci atau filter lain.</p>
+        </div>
+    </td>
+</tr>
                     </tbody>
                 </table>
             </div>
@@ -413,15 +523,26 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
     function filterTenants() {
-        const query = document.getElementById('searchTenant').value.toLowerCase();
-        const status = document.getElementById('statusFilter').value.toLowerCase();
+    const query = document.getElementById('searchTenant').value.toLowerCase();
+    const status = document.getElementById('statusFilter').value.toLowerCase();
+    const rows = document.querySelectorAll('.tenant-row');
+    let visible = 0;
 
-        document.querySelectorAll('.tenant-row').forEach(function (row) {
-            const matchesQuery = row.dataset.search.includes(query);
-            const matchesStatus = !status || row.dataset.status === status;
-            row.style.display = matchesQuery && matchesStatus ? '' : 'none';
-        });
-    }
+    rows.forEach(function (row) {
+        const matchesQuery = row.dataset.search.includes(query);
+        const matchesStatus = !status || row.dataset.status === status;
+        const show = matchesQuery && matchesStatus;
+
+        row.style.display = show ? '' : 'none';
+
+        if (show) visible++;
+    });
+
+    const noResults = document.getElementById('tenantNoResults');
+
+    noResults.style.display =
+        rows.length > 0 && visible === 0 ? '' : 'none';
+}
 
     @if ($errors->any())
         tenantModal.classList.add('open');

@@ -1,11 +1,9 @@
-<div class="nav-label">MENU UTAMA</div>
+<div class="nav-label">Menu Utama</div>
 
-<a class="nav-link {{ request()->routeIs('dashboard.pemilik') ? 'active' : '' }}"
-   href="{{ route('dashboard.pemilik') }}">
+<a href="{{ route('dashboard.pemilik') }}" class="nav-link {{ request()->routeIs('dashboard.pemilik') ? 'active' : '' }}">
     <span class="nav-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 21V7l9-4 9 4v14M7 21v-4h4v4M7 9h2m6 0h2M7 13h2m6 0h2"/>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21V7l9-4 9 4v14"/><path d="M7 21v-4h4v4M7 9h2m6 0h2m-10 4h2m6 0h2"/>
         </svg>
     </span>
     <span>Properti</span>
@@ -23,29 +21,27 @@
     <span>Kamar</span>
 </a>
 
-<a class="nav-link {{ request()->routeIs('dashboard.penyewa') ? 'active' : '' }}"
-   href="{{ route('dashboard.penyewa') }}">
+<a href="{{ route('dashboard.penyewa') }}" class="nav-link {{ request()->is('*penyewa*') ? 'active' : '' }}">
     <span class="nav-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="8" r="3"/>
-            <path d="M3 20v-2a6 6 0 0 1 12 0v2H3M16 5a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 4v2"/>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
         </svg>
     </span>
     <span>Penyewa</span>
 </a>
 
-
-<a class="nav-link {{ request()->routeIs('dashboard.tagihan') ? 'active' : '' }}"
-   href="{{ route('dashboard.tagihan') }}">
-
+<a href="{{ route('dashboard.tagihan') }}" class="nav-link {{ request()->routeIs('dashboard.tagihan') ? 'active' : '' }}">
     <span class="nav-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="5" y="3" width="14" height="18" rx="2"/>
-            <path d="M9 8h6M9 12h6M9 16h4"/>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
         </svg>
     </span>
     <span>Tagihan</span>
 </a>
-

@@ -37,10 +37,14 @@
     background-image:
         linear-gradient(rgba(238, 245, 252, 0.20), rgba(238, 245, 252, 0.20)),
         url('/images/login-background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+   
+
+background-size: cover;
+background-position: center center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+
+
     color: var(--text-main);
     -webkit-font-smoothing: antialiased;
 }
@@ -314,7 +318,6 @@
 
             <div class="heading">
                 <h2>Selamat Datang!</h2>
-                <p>Hunian Nyaman, Hidup Lebih Tenang.</p>
             </div>
 
             <form method="POST" action="{{ route('login.process') }}">

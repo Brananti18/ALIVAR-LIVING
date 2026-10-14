@@ -181,15 +181,56 @@
             .filters { flex-direction: column; padding: 16px; }
             .filters select { width: 100%; }
         }
+
+/* Empty state: samakan dengan halaman Properti */
+.empty-state {
+    padding: 60px 20px;
+    color: var(--slate-500);
+    text-align: center;
+    background: var(--bg-body);
+    border: 1px dashed var(--slate-200);
+    border-radius: var(--radius-lg);
+    margin: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state svg {
+    width: 36px;
+    height: 36px;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.empty-state strong {
+    display: block;
+    color: var(--navy);
+    font-size: 15px;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--slate-500);
+}
+
     </style>
 </head>
 <body>
 
 <header class="topbar">
     <a class="brand" href="{{ route('dashboard.pemilik') }}">
-        <img src="{{ asset('images/alivare-logo.png') }}" alt="ALIVARE">
+        <img src="{{ asset('images/alivare-logo.png') }}" alt="Logo Alivare">
     </a>
-    <div class="top-links"></div>
+
+    <!-- INI BARIS YANG DIPANGGIL -->
+    @include('components.topbar-actions')
 </header>
 
 <div class="layout">
@@ -312,8 +353,23 @@
                             </tr>
                         @endforelse
                         <tr id="noResults" style="display:none">
-                            <td colspan="6" class="empty">Tagihan tidak ditemukan.</td>
-                        </tr>
+    <td colspan="6" style="padding:0; border:0;">
+        <div class="empty-state">
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.5"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.3-4.3"/>
+            </svg>
+            <strong>Pencarian tidak ditemukan</strong>
+            <p>Coba gunakan kata kunci atau filter lain.</p>
+        </div>
+    </td>
+</tr>
                     </tbody>
                 </table>
             </div>

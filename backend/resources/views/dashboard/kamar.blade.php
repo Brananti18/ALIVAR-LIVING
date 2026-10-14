@@ -181,15 +181,61 @@
             .form-grid { grid-template-columns: 1fr; }
             .field.full { grid-column: auto; }
         }
+
+/* Empty state: samakan dengan halaman Properti */
+.empty-state {
+    padding: 60px 20px;
+    color: var(--slate-500);
+    text-align: center;
+    background: var(--bg-body);
+    border: 1px dashed var(--slate-200);
+    border-radius: var(--radius-lg);
+    margin: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.empty-state svg {
+    display: block;
+    width: 36px;
+    height: 36px;
+    max-width: 36px;
+    max-height: 36px;
+    margin: 0 auto 12px;
+    color: #94a3b8;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+
+.empty-state strong {
+    display: block;
+    color: var(--navy);
+    font-size: 15px;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--slate-500);
+}
+
     </style>
 </head>
 <body>
 
 <header class="topbar">
-    <a href="{{ route('dashboard.pemilik') }}" class="brand">
+    <a class="brand" href="{{ route('dashboard.pemilik') }}">
         <img src="{{ asset('images/alivare-logo.png') }}" alt="Logo Alivare">
     </a>
-    <div></div>
+
+    <!-- INI BARIS YANG DIPANGGIL -->
+    @include('components.topbar-actions')
 </header>
 
 <div class="layout">
@@ -301,9 +347,21 @@
                     </tbody>
                 </table>
             </div>
-            <div id="noResults" class="empty" style="display:none">
-                Pencarian tidak ditemukan. Coba gunakan nomor kamar atau filter lain.
-            </div>
+           <div id="noResults" class="empty-state" style="display:none">
+    <svg viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="1.5"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.3-4.3"/>
+    </svg>
+
+    <strong>Pencarian tidak ditemukan</strong>
+    <p>Coba gunakan kata kunci atau filter lain.</p>
+</div>
         </section>
     </main>
 </div>

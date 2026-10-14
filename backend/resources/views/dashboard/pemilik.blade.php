@@ -92,11 +92,27 @@
         .icon-button:hover { background: var(--slate-100); color: var(--navy); }
         .icon-button svg { width: 20px; height: 20px; }
         
-        .avatar { 
-            width: 38px; height: 38px; border: 0; border-radius: 50%; 
-            background: var(--primary-soft); color: var(--primary); 
-            display: grid; place-items: center; font-weight: 700; font-size: 15px; 
-        }
+       .avatar { 
+    width: 38px; 
+    height: 38px; 
+    border: 1.5px solid #bfdbfe; /* Border biru soft agar bentuk lingkaran sangat jelas */
+    border-radius: 50%; 
+    background: #dbeafe; /* Background biru muda yang lebih tegas & kontras */
+    color: #1d4ed8; /* Warna huruf P biru tebal */
+    display: grid; 
+    place-items: center; 
+    font-weight: 700; 
+    font-size: 15px; 
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.12);
+}
+
+.avatar:hover {
+    background: #bfdbfe;
+    border-color: #93c5fd;
+    color: #1e40af;
+}
 
         /* Menu Akun Dropdown */
         .account-menu { position: relative; }
@@ -321,14 +337,48 @@
             border-color: #fca5a5 !important; 
         }
 
-        /* Empty State */
-        .empty-state { 
-            padding: 60px 20px; color: var(--slate-500); text-align: center; 
-            background: var(--bg-body); border: 1px dashed var(--slate-200); 
-            border-radius: var(--radius-lg); margin: 24px;
-        }
-        .empty-state svg { width: 40px; height: 40px; color: var(--slate-200); margin-bottom: 12px; }
-        .empty-state strong { display: block; color: var(--navy); font-size: 15px; margin-bottom: 4px; font-weight: 600; }
+       /* Empty State */
+.empty-state { 
+    padding: 60px 20px; 
+    color: var(--slate-500); 
+    text-align: center; 
+    background: var(--bg-body); 
+    border: 1px dashed var(--slate-200); 
+    border-radius: var(--radius-lg); 
+    margin: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state svg { 
+    width: 36px; 
+    height: 36px; 
+    color: #94a3b8; 
+    margin-bottom: 12px; 
+    display: block;
+}
+
+.empty-state strong { 
+    display: block; 
+    color: var(--navy); 
+    font-size: 15px; 
+    margin-bottom: 4px; 
+    font-weight: 600; 
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--slate-500);
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--slate-500);
+}
 
         /* ====== MODAL ====== */
         .property-modal { 
@@ -447,11 +497,22 @@
                     <strong>{{ auth()->user()->name ?? 'Pengelola' }}</strong>
                     <small>{{ auth()->user()->email ?? '' }}</small>
                 </div>
+
                 <div class="account-divider"></div>
-                <button type="button" class="account-item" onclick="alert('Fitur Profil belum tersedia.')">
-                    <span class="account-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-                    <span>Profil Saya</span>
-                </button>
+                
+               <a href="{{ route('profile.edit') }}" class="account-item"
+   style="text-decoration: none;">
+    <span class="account-icon">
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+        </svg>
+    </span>
+    <span>Profil Saya</span>
+</a>
+
                 <div class="account-divider"></div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -642,13 +703,13 @@
                 @endforelse
             </div>
             
-            @if ($totalProperties > 0)
-                <div class="empty-state" id="emptyState" style="display:none">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                    <strong>Pencarian tidak ditemukan</strong>
-                    Coba gunakan kata kunci atau filter lain.
-                </div>
-            @endif
+           @if ($totalProperties > 0)
+    <div class="empty-state" id="emptyState" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <strong>Pencarian tidak ditemukan</strong>
+        <p>Coba gunakan kata kunci atau filter lain.</p>
+    </div>
+@endif
         </section>
     </main>
 </div>
@@ -829,7 +890,7 @@ function filterData() {
     });
     
     if (rCount) rCount.textContent = visible + ' properti';
-    eStates.forEach(el => el.style.display = (cards.length > 0 && visible === 0) || cards.length === 0 ? 'block' : 'none');
+    eStates.forEach(el => el.style.display = (cards.length > 0 && visible === 0) || cards.length === 0 ? 'flex' : 'none');
 }
 
 pSearch?.addEventListener('input', () => { if (gSearch) gSearch.value = ''; filterData(); });

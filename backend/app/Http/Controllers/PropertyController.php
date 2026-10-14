@@ -13,9 +13,9 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::where('user_id', auth()->id())
-            ->latest()
-            ->get();
+       $properties = Property::where('user_id', auth()->id())
+    ->orderBy('created_at', 'desc')
+    ->get();
 
         // Statistik dihitung dari properti milik pengguna yang login.
         $totalProperties = $properties->count();
