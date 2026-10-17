@@ -35,4 +35,14 @@ return [
         ],
     ],
 
+    // Tambahkan Midtrans di bawah ini
+    // 'midtrans' => [
+    //     'merchant_id'   => env('MIDTRANS_MERCHANT_ID'),
+    //     'client_key'    => env('MIDTRANS_CLIENT_KEY'),
+    //     'server_key'    => env('MIDTRANS_SERVER_KEY'),
+    //     'is_production' => env('MIDTRANS_IS_PRODUCTION', false), // default false (Sandbox)
+    //     'is_sanitized'  => env('MIDTRANS_IS_SANITIZED', true),
+    //     'is_3ds'        => env('MIDTRANS_IS_3DS', true),
+    // ],
+
 ];
