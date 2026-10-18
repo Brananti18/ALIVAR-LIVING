@@ -9,6 +9,7 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\TenantProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IncomeReportController;
 
 // ========================================
 // SPLASH SCREEN
@@ -164,3 +165,10 @@ Route::put('/dashboard/pemilik/tagihan/{bill}', [BillController::class, 'update'
 Route::delete('/dashboard/pemilik/tagihan/{bill}', [BillController::class, 'destroy'])
     ->middleware(['auth', 'role:pemilik'])
     ->name('bills.destroy');
+
+Route::get(
+    '/dashboard/pemilik/laporan-pendapatan',
+    [IncomeReportController::class, 'index']
+)->middleware(['auth', 'role:pemilik'])
+  ->name('dashboard.laporan-pendapatan');
+
