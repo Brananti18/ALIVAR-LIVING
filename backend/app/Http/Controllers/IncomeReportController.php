@@ -33,22 +33,30 @@ class IncomeReportController extends Controller
         // Modul pengeluaran belum tersedia.
         $totalExpense = 0;
 
-        $incomeCategories = $paidBills
-            ->groupBy('title')
-            ->map(fn ($items) => $items->sum('amount'));
+       
+$totalIncome = $paidBills->sum('amount');
+
+$incomeCategories = collect([
+    [
+        'name' => 'Sewa Kamar',
+        'amount' => $totalIncome,
+    ],
+]);
 
       
         // Total pemasukan setiap bulan pada tahun yang dipilih.
-        $monthlyIncome = collect();
+       
+$monthlyIncome = [];
 
-        for ($m = 1; $m <= 12; $m++) {
-            $monthlyIncome[$m] = Bill::query()
-                ->where('user_id', $userId)
-                ->where('status', 'dibayar')
-                ->whereYear('due_date', $year)
-                ->whereMonth('due_date', $m)
-                ->sum('amount');
-        }
+for ($m = 1; $m <= 12; $m++) {
+    $monthlyIncome[] = Bill::query()
+        ->where('user_id', $userId)
+        ->where('status', 'dibayar')
+        ->whereYear('due_date', $year)
+        ->whereMonth('due_date', $m)
+        ->sum('amount');
+}
+
 
 
         return view('dashboard.laporan-pendapatan', [
