@@ -10,6 +10,8 @@ use App\Http\Controllers\TenantProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IncomeReportController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AnnouncementController;
 
 // ========================================
 // SPLASH SCREEN
@@ -63,11 +65,48 @@ Route::middleware('auth')->group(function () {
 // DASHBOARD BERDASARKAN ROLE
 // ========================================
 
-Route::get('/dashboard/admin', function () {
-    return view('dashboard.admin');
-})
+
+Route::get('/dashboard/admin', [AdminDashboardController::class, 'index'])
     ->middleware(['auth', 'role:admin'])
     ->name('dashboard.admin');
+
+    
+Route::get('/dashboard/admin/pengguna', [
+    AdminDashboardController::class,
+    'users'
+])
+    ->middleware(['auth', 'role:admin'])
+    ->name('admin.users');
+
+    Route::get('/dashboard/admin/monitoring', [
+    AdminDashboardController::class,
+    'monitoring'
+])
+    ->middleware(['auth', 'role:admin'])
+    ->name('admin.monitoring');
+
+    
+ // ========================================
+ // PENGUMUMAN ADMIN
+ // ========================================
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get(
+        '/dashboard/admin/pengumuman',
+        [AnnouncementController::class, 'index']
+    )->name('admin.announcements');
+
+    Route::post(
+        '/dashboard/admin/pengumuman',
+        [AnnouncementController::class, 'store']
+    )->name('admin.announcements.store');
+
+    Route::delete(
+        '/dashboard/admin/pengumuman/{announcement}',
+        [AnnouncementController::class, 'destroy']
+    )->name('admin.announcements.destroy');
+});
+
 
 Route::get('/dashboard/pemilik', [PropertyController::class, 'index'])
     ->middleware(['auth', 'role:pemilik'])
@@ -171,4 +210,5 @@ Route::get(
     [IncomeReportController::class, 'index']
 )->middleware(['auth', 'role:pemilik'])
   ->name('dashboard.laporan-pendapatan');
+
 
