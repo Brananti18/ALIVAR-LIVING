@@ -8,11 +8,10 @@
 
     <style>
         :root {
-            /* Warna SaaS Premium ALIVARE */
-            --primary: #2563eb; 
+            --primary: #2563eb;
             --primary-hover: #1d4ed8;
             --primary-soft: #eff6ff;
-            --navy: #0f172a; 
+            --navy: #0f172a;
             --navy-light: #1e293b;
             --slate-100: #f1f5f9;
             --slate-200: #e2e8f0;
@@ -20,16 +19,12 @@
             --slate-800: #1e293b;
             --bg-body: #f8fafc;
             --card-bg: #ffffff;
-            
-            /* Status Colors */
             --success: #10b981;
             --success-bg: #ecfdf5;
             --warning: #f59e0b;
             --warning-bg: #fffbeb;
             --danger: #ef4444;
             --danger-bg: #fef2f2;
-            
-            /* Geometri & Shadow */
             --radius-sm: 6px;
             --radius-md: 8px;
             --radius-lg: 12px;
@@ -40,60 +35,39 @@
         }
 
         * { box-sizing: border-box; }
-        
-        body { 
-            margin: 0; 
-            background: var(--bg-body); 
-            color: var(--navy); 
-            font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+        body {
+            margin: 0;
+            background: var(--bg-body);
+            color: var(--navy);
+            font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        button, input, select, textarea { font: inherit; } 
+        button, input, select, textarea { font: inherit; }
         button { cursor: pointer; }
 
-        /* ====== HEADER ====== */
-        .topbar { 
-            min-height: 70px; padding: 0 24px; 
-            display: flex; align-items: center; justify-content: space-between; gap: 32px; 
-            background: var(--card-bg); border-bottom: 1px solid var(--slate-200); 
-            position: sticky; top: 0; z-index: 30; 
+        .topbar {
+            min-height: 70px; padding: 0 24px;
+            display: flex; align-items: center; justify-content: space-between; gap: 32px;
+            background: var(--card-bg); border-bottom: 1px solid var(--slate-200);
+            position: sticky; top: 0; z-index: 30;
         }
         .brand { display: flex; align-items: center; justify-content: center; height: 100%; width: 170px; flex-shrink: 0; }
         .brand img { height: 44px !important; width: auto !important; max-width: 100% !important; object-fit: contain; }
 
-        /* ====== LAYOUT & SIDEBAR ====== */
         .layout { display: flex; min-height: calc(100vh - 70px); }
         .sidebar { width: 220px; padding: 24px 16px; background: var(--card-bg); border-right: 1px solid var(--slate-200); flex-shrink: 0; }
-        .nav-label { padding: 8px 12px; color: var(--slate-500); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        .nav-link { 
-            display: flex; align-items: center; flex-direction: row; gap: 12px; 
-            width: 100%; min-height: 44px; padding: 10px 12px; margin-bottom: 4px; 
-            border-radius: var(--radius-md); text-decoration: none; 
-            color: var(--slate-500); font-weight: 500; font-size: 14px;
-            transition: 0.2s;
-        }
-        .nav-link:hover { background: var(--bg-body); color: var(--navy); }
-        .nav-link.active { color: var(--primary); background: var(--primary-soft); font-weight: 600; }
-        .nav-link.active .nav-icon { color: var(--primary); }
-        .nav-icon { 
-            width: 20px; height: 20px; flex: 0 0 20px; 
-            display: inline-flex; align-items: center; justify-content: center; 
-            color: var(--slate-500); 
-        }
-        .nav-icon svg { width: 20px; height: 20px; max-width: 20px; max-height: 20px; display: block; flex-shrink: 0; }
-
         .main { flex: 1; min-width: 0; max-width: 1280px; margin: 0 auto; padding: 32px; }
 
-        /* ====== HEADING & BUTTONS ====== */
         .page-heading { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
         h1 { margin: 0 0 4px; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
         .subtitle { color: var(--slate-500); margin: 0; font-size: 14px; }
-        
-        .btn { 
-            display: inline-flex !important; flex-direction: row !important; align-items: center !important; 
-            justify-content: center !important; gap: 8px !important; padding: 10px 18px !important; 
-            border-radius: var(--radius-md) !important; font-size: 13px !important; font-weight: 600 !important; 
+
+        .btn {
+            display: inline-flex !important; flex-direction: row !important; align-items: center !important;
+            justify-content: center !important; gap: 8px !important; padding: 10px 18px !important;
+            border-radius: var(--radius-md) !important; font-size: 13px !important; font-weight: 600 !important;
             text-decoration: none !important; transition: all 0.2s ease !important; white-space: nowrap !important; cursor: pointer !important;
         }
         .btn svg { width: 16px !important; height: 16px !important; max-width: 16px !important; max-height: 16px !important; flex: 0 0 16px !important; display: inline-block !important; margin: 0 !important; }
@@ -106,28 +80,25 @@
         .btn-sm { padding: 7px 12px !important; font-size: 12px !important; gap: 6px !important; }
         .btn-sm svg { width: 14px !important; height: 14px !important; max-width: 14px !important; max-height: 14px !important; flex: 0 0 14px !important; }
 
-        /* Alerts */
         .alert { border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 24px; font-size: 14px; background: var(--success-bg); color: #065f46; border: 1px solid #a7f3d0; }
 
-        /* ====== PANEL & FILTER ====== */
         .panel { background: var(--card-bg); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
         .panel-head { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--slate-200); }
         .panel-head h2 { font-size: 16px; font-weight: 700; margin: 0; }
         .panel-head .subtitle { font-size: 13px; font-weight: 500; }
-        
+
         .filters { display: flex; gap: 16px; padding: 16px 24px; background: #fcfdfd; border-bottom: 1px solid var(--slate-200); }
         .filter-search-wrapper { position: relative; flex: 1; }
         .filter-search-wrapper svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--slate-500); width: 16px; height: 16px; }
-        .filters input, .filters select { 
-            width: 100%; padding: 9px 14px; border: 1px solid var(--slate-200); 
-            border-radius: var(--radius-md); background: var(--card-bg); 
+        .filters input, .filters select {
+            width: 100%; padding: 9px 14px; border: 1px solid var(--slate-200);
+            border-radius: var(--radius-md); background: var(--card-bg);
             color: var(--navy); font-size: 13px; outline: none; transition: 0.2s;
         }
         .filters input { padding-left: 38px; }
         .filters select { min-width: 180px; width: auto; cursor: pointer; }
         .filters input:focus, .filters select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
 
-        /* ====== TABEL PENYEWA ====== */
         .table-wrap { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; text-align: left; }
         th { padding: 14px 24px; background: #fcfdfd; color: var(--slate-500); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--slate-200); white-space: nowrap; }
@@ -135,8 +106,7 @@
         tbody tr { transition: background-color 0.2s; }
         tbody tr:hover { background-color: var(--slate-50); }
         tbody tr:last-child td { border-bottom: none; }
-        
-        /* Status Badges */
+
         .status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; white-space: nowrap; text-transform: capitalize; }
         .status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
         .status.aktif { background: var(--success-bg); color: var(--success); }
@@ -144,68 +114,48 @@
 
         .actions { display: flex; gap: 8px; align-items: center; }
 
-        /* Empty State Standard ALIVARE */
-.empty-state { 
-    padding: 48px 20px; 
-    color: var(--slate-500); 
-    text-align: center; 
-    background: var(--bg-body); 
-    border: 1px dashed var(--slate-200); 
-    border-radius: var(--radius-lg); 
-    margin: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.empty-state svg { 
-    width: 36px; 
-    height: 36px; 
-    color: #94a3b8; 
-    margin-bottom: 12px; 
-    display: block;
-}
-
-.empty-state strong { 
-    display: block; 
-    color: var(--navy); 
-    font-size: 15px; 
-    margin-bottom: 4px; 
-    font-weight: 600; 
-}
-
-.empty-state p {
-    margin: 0;
-    font-size: 13px;
-    color: var(--slate-500);
-}
-
-        /* ====== MODAL ====== */
-        .modal { 
-            display: none; position: fixed; inset: 0; z-index: 100; 
-            background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
-            padding: 20px; align-items: center; justify-content: center; overflow-y: auto; 
+        .empty-state {
+            padding: 60px 20px; color: var(--slate-500); text-align: center; background: var(--bg-body);
+            border: 1px dashed var(--slate-200); border-radius: var(--radius-lg); margin: 24px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .modal.open { display: flex; }
-        .modal-box { 
-            background: var(--card-bg); width: 100%; max-width: 650px; padding: 28px; 
+        .empty-state svg { width: 36px; height: 36px; color: #94a3b8; margin-bottom: 12px; display: block; flex-shrink: 0; }
+        .empty-state strong { display: block; color: var(--navy); font-size: 15px; margin-bottom: 4px; font-weight: 600; }
+        .empty-state p { margin: 0; font-size: 13px; color: var(--slate-500); }
+
+        /* ====== ANIMASI MODAL FORM PENYEWA ====== */
+        .modal {
+            position: fixed; inset: 0; z-index: 100;
+            background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            padding: 20px; display: flex; align-items: center; justify-content: center; overflow-y: auto;
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal.open {
+            opacity: 1; visibility: visible; pointer-events: auto;
+        }
+        .modal-box {
+            background: var(--card-bg); width: 100%; max-width: 650px; padding: 28px;
             border-radius: var(--radius-xl); box-shadow: var(--shadow-modal); position: relative; margin: auto;
+            transform: scale(0.88) translateY(16px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal.open .modal-box {
+            transform: scale(1) translateY(0);
         }
         .modal-box h2 { margin: 0 0 4px; font-size: 18px; font-weight: 700; }
         .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
         .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 0; }
         .field.full { grid-column: 1 / -1; }
         .field label { font-weight: 600; font-size: 13px; color: var(--navy); margin-bottom: 0; }
-        .field input, .field select, .field textarea { 
-            width: 100%; padding: 10px 14px; border: 1px solid var(--slate-200); 
+        .field input, .field select, .field textarea {
+            width: 100%; padding: 10px 14px; border: 1px solid var(--slate-200);
             border-radius: var(--radius-md); background: var(--card-bg); font-size: 13px;
             transition: 0.2s; outline: none;
         }
         .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
         .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--slate-200); }
 
-        /* ====== RESPONSIVE ====== */
         @media (max-width: 768px) {
             .topbar { padding: 0 16px; }
             .sidebar { display: none; }
@@ -217,45 +167,6 @@
             .form-grid { grid-template-columns: 1fr; }
             .field.full { grid-column: auto; }
         }
-
-/* Empty state: samakan dengan halaman Properti */
-.empty-state {
-    padding: 60px 20px;
-    color: var(--slate-500);
-    text-align: center;
-    background: var(--bg-body);
-    border: 1px dashed var(--slate-200);
-    border-radius: var(--radius-lg);
-    margin: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.empty-state svg {
-    width: 36px;
-    height: 36px;
-    color: #94a3b8;
-    margin-bottom: 12px;
-    display: block;
-    flex-shrink: 0;
-}
-
-.empty-state strong {
-    display: block;
-    color: var(--navy);
-    font-size: 15px;
-    margin-bottom: 4px;
-    font-weight: 600;
-}
-
-.empty-state p {
-    margin: 0;
-    font-size: 13px;
-    color: var(--slate-500);
-}
-
     </style>
 </head>
 <body>
@@ -264,8 +175,6 @@
     <a class="brand" href="{{ route('dashboard.pemilik') }}">
         <img src="{{ asset('images/alivare-logo.png') }}" alt="Logo Alivare">
     </a>
-
-    <!-- INI BARIS YANG DIPANGGIL -->
     @include('components.topbar-actions')
 </header>
 
@@ -309,9 +218,7 @@
             <div class="filters">
                 <div class="filter-search-wrapper">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                    <input id="searchTenant" type="search"
-                        placeholder="Cari nama, telepon, atau nomor kamar..."
-                        oninput="filterTenants()">
+                    <input id="searchTenant" type="search" placeholder="Cari nama, telepon, atau nomor kamar..." oninput="filterTenants()">
                 </div>
                 <select id="statusFilter" onchange="filterTenants()">
                     <option value="">Semua Status</option>
@@ -356,55 +263,37 @@
                                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Edit
                                         </button>
 
-                                    
-</button>
+                                        <a href="{{ route('dashboard.profil-sewa', ['tenant' => $tenant->id]) }}" class="btn btn-secondary btn-sm">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+                                                <circle cx="12" cy="12" r="3"/>
+                                            </svg>
+                                            Profil Sewa
+                                        </a>
 
-
-<a href="{{ route('dashboard.profil-sewa', ['tenant' => $tenant->id]) }}"
-   class="btn btn-secondary btn-sm">
-    <svg viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" stroke-width="2"
-         stroke-linecap="round" stroke-linejoin="round">
-        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
-        <circle cx="12" cy="12" r="3"/>
-    </svg>
-    Profil Sewa
-</a>
-
-
-<button type="button" class="btn btn-danger btn-sm"
-    onclick="openDeleteModal('{{ route('tenants.destroy', $tenant) }}', @js($tenant->name), 'Penyewa')">
-   
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Hapus
-</button>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="openDeleteModal('{{ route('tenants.destroy', $tenant) }}', @js($tenant->name), 'Penyewa')">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Hapus
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="empty">
+                                <td colspan="6" style="text-align:center; padding: 36px; color: var(--slate-500);">
                                     Belum ada data penyewa. Klik <strong>Tambah Penyewa</strong> untuk mulai menambahkan.
                                 </td>
                             </tr>
                         @endforelse
                         <tr id="tenantNoResults" style="display:none">
-    <td colspan="6" style="padding:0; border:0;">
-        <div class="empty-state">
-            <svg viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="1.5"
-                 stroke-linecap="round"
-                 stroke-linejoin="round"
-                 aria-hidden="true">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="m21 21-4.3-4.3"/>
-            </svg>
-            <strong>Pencarian tidak ditemukan</strong>
-            <p>Coba gunakan kata kunci atau filter lain.</p>
-        </div>
-    </td>
-</tr>
+                            <td colspan="6" style="padding:0; border:0;">
+                                <div class="empty-state">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                    <strong>Pencarian tidak ditemukan</strong>
+                                    <p>Coba gunakan kata kunci atau filter lain.</p>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -518,31 +407,27 @@
         tenantModal.classList.remove('open');
     }
 
-    // Tutup modal saat klik area latar belakang atau tekan tombol Esc
     tenantModal.addEventListener('click', e => { if (e.target === tenantModal) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
     function filterTenants() {
-    const query = document.getElementById('searchTenant').value.toLowerCase();
-    const status = document.getElementById('statusFilter').value.toLowerCase();
-    const rows = document.querySelectorAll('.tenant-row');
-    let visible = 0;
+        const query = document.getElementById('searchTenant').value.toLowerCase();
+        const status = document.getElementById('statusFilter').value.toLowerCase();
+        const rows = document.querySelectorAll('.tenant-row');
+        let visible = 0;
 
-    rows.forEach(function (row) {
-        const matchesQuery = row.dataset.search.includes(query);
-        const matchesStatus = !status || row.dataset.status === status;
-        const show = matchesQuery && matchesStatus;
+        rows.forEach(function (row) {
+            const matchesQuery = row.dataset.search.includes(query);
+            const matchesStatus = !status || row.dataset.status === status;
+            const show = matchesQuery && matchesStatus;
 
-        row.style.display = show ? '' : 'none';
+            row.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
 
-        if (show) visible++;
-    });
-
-    const noResults = document.getElementById('tenantNoResults');
-
-    noResults.style.display =
-        rows.length > 0 && visible === 0 ? '' : 'none';
-}
+        const noResults = document.getElementById('tenantNoResults');
+        noResults.style.display = rows.length > 0 && visible === 0 ? '' : 'none';
+    }
 
     @if ($errors->any())
         tenantModal.classList.add('open');

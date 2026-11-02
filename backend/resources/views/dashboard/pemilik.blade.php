@@ -8,11 +8,10 @@
 
     <style>
         :root {
-            /* Warna SaaS Premium */
-            --primary: #2563eb; 
+            --primary: #2563eb;
             --primary-hover: #1d4ed8;
             --primary-soft: #eff6ff;
-            --navy: #0f172a; 
+            --navy: #0f172a;
             --navy-light: #1e293b;
             --slate-100: #f1f5f9;
             --slate-200: #e2e8f0;
@@ -20,16 +19,12 @@
             --slate-800: #1e293b;
             --bg-body: #f8fafc;
             --card-bg: #ffffff;
-            
-            /* Status Colors */
             --success: #10b981;
             --success-bg: #ecfdf5;
             --warning: #f59e0b;
             --warning-bg: #fffbeb;
             --danger: #ef4444;
             --danger-bg: #fef2f2;
-            
-            /* Geometri */
             --radius-sm: 6px;
             --radius-md: 8px;
             --radius-lg: 12px;
@@ -40,44 +35,32 @@
         }
 
         * { box-sizing: border-box; }
-        
-        body { 
-            margin: 0; 
-            background: var(--bg-body); 
-            color: var(--navy); 
-            font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+        body {
+            margin: 0;
+            background: var(--bg-body);
+            color: var(--navy);
+            font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        button, input, select { font: inherit; } 
+        button, input, select { font: inherit; }
         button { cursor: pointer; }
 
-        /* ====== HEADER ====== */
-        .topbar { 
-            min-height: 70px; padding: 0 24px; 
-            display: flex; align-items: center; gap: 32px; 
-            background: var(--card-bg); border-bottom: 1px solid var(--slate-200); 
-            position: sticky; top: 0; z-index: 30; 
+        .topbar {
+            min-height: 70px; padding: 0 24px;
+            display: flex; align-items: center; gap: 32px;
+            background: var(--card-bg); border-bottom: 1px solid var(--slate-200);
+            position: sticky; top: 0; z-index: 30;
         }
-        
-        .brand { 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; /* Menengahkan logo secara horizontal */
-    height: 100%; 
-    width: 170px; 
-}
-.brand img { 
-    height: 44px !important; 
-    width: auto !important; 
-    max-width: 100% !important; 
-    object-fit: contain; 
-}
-        
+
+        .brand { display: flex; align-items: center; justify-content: center; height: 100%; width: 170px; }
+        .brand img { height: 44px !important; width: auto !important; max-width: 100% !important; object-fit: contain; }
+
         .top-search { max-width: 400px; flex: 1; position: relative; }
-        .top-search input { 
-            width: 100%; padding: 10px 16px 10px 40px; 
-            border: 1px solid var(--slate-200); border-radius: var(--radius-md); 
+        .top-search input {
+            width: 100%; padding: 10px 16px 10px 40px;
+            border: 1px solid var(--slate-200); border-radius: var(--radius-md);
             background: var(--bg-body); outline: none; transition: 0.2s; font-size: 14px;
         }
         .top-search input:focus { border-color: var(--primary); background: var(--card-bg); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
@@ -85,50 +68,38 @@
         .search-icon svg { width: 18px; height: 18px; }
 
         .top-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
-        .icon-button { 
-            width: 38px; height: 38px; display: grid; place-items: center; 
+        .icon-button {
+            width: 38px; height: 38px; display: grid; place-items: center;
             border: 0; border-radius: 50%; background: transparent; color: var(--slate-500); transition: 0.2s;
         }
         .icon-button:hover { background: var(--slate-100); color: var(--navy); }
         .icon-button svg { width: 20px; height: 20px; }
-        
-       .avatar { 
-    width: 38px; 
-    height: 38px; 
-    border: 1.5px solid #bfdbfe; /* Border biru soft agar bentuk lingkaran sangat jelas */
-    border-radius: 50%; 
-    background: #dbeafe; /* Background biru muda yang lebih tegas & kontras */
-    color: #1d4ed8; /* Warna huruf P biru tebal */
-    display: grid; 
-    place-items: center; 
-    font-weight: 700; 
-    font-size: 15px; 
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.12);
-}
 
-.avatar:hover {
-    background: #bfdbfe;
-    border-color: #93c5fd;
-    color: #1e40af;
-}
+        .avatar {
+            width: 38px; height: 38px;
+            border: 1.5px solid #bfdbfe; border-radius: 50%;
+            background: #dbeafe; color: #1d4ed8;
+            display: grid; place-items: center;
+            font-weight: 700; font-size: 15px; cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.12);
+        }
+        .avatar:hover { background: #bfdbfe; border-color: #93c5fd; color: #1e40af; }
 
-        /* Menu Akun Dropdown */
         .account-menu { position: relative; }
-        .account-dropdown { 
-            position: absolute; top: calc(100% + 8px); right: 0; width: 240px; padding: 8px; 
-            background: var(--card-bg); border: 1px solid var(--slate-200); 
-            border-radius: var(--radius-lg); box-shadow: var(--shadow-md); z-index: 100; 
+        .account-dropdown {
+            position: absolute; top: calc(100% + 8px); right: 0; width: 240px; padding: 8px;
+            background: var(--card-bg); border: 1px solid var(--slate-200);
+            border-radius: var(--radius-lg); box-shadow: var(--shadow-md); z-index: 100;
         }
         .account-dropdown[hidden] { display: none; }
         .account-info { padding: 8px 12px; display: flex; flex-direction: column; }
         .account-info strong { font-size: 14px; color: var(--navy); }
         .account-info small { color: var(--slate-500); font-size: 12px; }
         .account-divider { height: 1px; background: var(--slate-200); margin: 6px 0; }
-        .account-item { 
-            width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 12px; 
-            border: 0; border-radius: var(--radius-sm); background: transparent; 
+        .account-item {
+            width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+            border: 0; border-radius: var(--radius-sm); background: transparent;
             color: var(--slate-800); font-size: 13px; font-weight: 500; transition: 0.2s;
         }
         .account-item:hover { background: var(--slate-100); color: var(--primary); }
@@ -137,105 +108,36 @@
         .account-icon svg { width: 16px; height: 16px; }
         .account-logout { color: var(--danger); }
         .account-logout:hover { background: var(--danger-bg); color: var(--danger); }
-        .account-logout .account-icon { color: var(--danger); }
-        .account-logout:hover .account-icon { color: var(--danger); }
 
-        /* ====== LAYOUT & SIDEBAR ====== */
         .layout { display: flex; min-height: calc(100vh - 70px); }
-        
-        /* Lebar sidebar disesuaikan menjadi 220px */
         .sidebar { width: 220px; padding: 24px 16px; background: var(--card-bg); border-right: 1px solid var(--slate-200); flex-shrink: 0; }
-        
-        .nav-label { padding: 8px 12px; color: var(--slate-500); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        /* Memaksa layout horizontal dengan flex-direction: row dan tinggi minimum 44px */
-        .nav-link { 
-            display: flex; align-items: center; flex-direction: row; gap: 12px; 
-            width: 100%; min-height: 44px; padding: 10px 12px; margin-bottom: 4px; 
-            border-radius: var(--radius-md); text-decoration: none; 
-            color: var(--slate-500); font-weight: 500; font-size: 14px;
-            transition: 0.2s;
-        }
-        .nav-link:hover { background: var(--bg-body); color: var(--navy); }
-        .nav-link.active { color: var(--primary); background: var(--primary-soft); font-weight: 600; }
-        .nav-link.active .nav-icon { color: var(--primary); }
-        
-        /* Memaksa wrapper ikon menjadi persegi fix 20x20px agar tidak bisa membesar/mengecil */
-        .nav-icon { 
-            width: 20px; height: 20px; flex: 0 0 20px; 
-            display: inline-flex; align-items: center; justify-content: center; 
-            color: var(--slate-500); 
-        }
-        
-        /* Membatasi batas maksimal file SVG itu sendiri */
-        .nav-icon svg { 
-            width: 20px; height: 20px; max-width: 20px; max-height: 20px; 
-            display: block; flex-shrink: 0;
-        }
-
         .main { flex: 1; min-width: 0; max-width: 1280px; margin: 0 auto; padding: 32px; }
 
-/* ====== HEADING & BUTTONS ====== */
         .page-heading { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
         h1 { margin: 0 0 4px; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
         .subtitle { color: var(--slate-500); margin: 0; font-size: 14px; }
-        
-        /* Memaksa layout tombol agar kebal dari Tailwind/Bootstrap global CSS */
-        .btn { 
-            display: inline-flex !important; 
-            flex-direction: row !important; 
-            align-items: center !important; 
-            justify-content: center !important; 
-            gap: 8px !important;
-            padding: 10px 18px !important; 
-            border-radius: var(--radius-md) !important; 
-            font-size: 13px !important; 
-            font-weight: 600 !important; 
-            text-decoration: none !important; 
-            transition: all 0.2s ease !important; 
-            white-space: nowrap !important;
+
+        .btn {
+            display: inline-flex !important; flex-direction: row !important; align-items: center !important;
+            justify-content: center !important; gap: 8px !important; padding: 10px 18px !important;
+            border-radius: var(--radius-md) !important; font-size: 13px !important; font-weight: 600 !important;
+            text-decoration: none !important; transition: all 0.2s ease !important; white-space: nowrap !important;
             cursor: pointer !important;
         }
-        
-        /* Memaksa SVG di dalam tombol agar ukurannya terkunci 16x16 px */
-        .btn svg { 
-            width: 16px !important; 
-            height: 16px !important; 
-            max-width: 16px !important; 
-            max-height: 16px !important; 
-            flex: 0 0 16px !important; 
-            display: inline-block !important; 
-            margin: 0 !important; 
-        }
+        .btn svg { width: 16px !important; height: 16px !important; max-width: 16px !important; max-height: 16px !important; flex: 0 0 16px !important; display: inline-block !important; margin: 0 !important; }
+        .btn-primary { background-color: var(--primary) !important; color: #ffffff !important; border: 1px solid var(--primary) !important; box-shadow: var(--shadow-sm) !important; }
+        .btn-primary:hover { background-color: var(--primary-hover) !important; transform: translateY(-1px); box-shadow: var(--shadow-md) !important; }
+        .btn-secondary { background-color: #ffffff !important; color: var(--navy) !important; border: 1px solid var(--slate-200) !important; }
+        .btn-secondary:hover { background-color: var(--slate-100) !important; }
+        .btn-danger { background-color: #ffffff !important; color: var(--danger) !important; border: 1px solid #fecaca !important; }
+        .btn-danger:hover { background-color: var(--danger-bg) !important; border-color: #fca5a5 !important; }
 
-        /* Memaksa warna Primary (Biru) agar tidak menjadi transparan */
-        .btn-primary { 
-            background-color: var(--primary) !important; 
-            color: #ffffff !important; 
-            border: 1px solid var(--primary) !important; 
-            box-shadow: var(--shadow-sm) !important; 
-        }
-        .btn-primary:hover { 
-            background-color: var(--primary-hover) !important; 
-            transform: translateY(-1px); 
-            box-shadow: var(--shadow-md) !important; 
-        }
-        .btn-primary svg { color: #ffffff !important; }
-        
-        /* Alerts */
         .alert { border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 24px; font-size: 14px; }
         .alert-success { background: var(--success-bg); color: #065f46; border: 1px solid #a7f3d0; }
         .alert-error { background: var(--danger-bg); color: #991b1b; border: 1px solid #fecaca; }
-        .alert-error ul { margin: 4px 0 0; padding-left: 20px; }
 
-        /* ====== STATISTIK ====== */
         .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-bottom: 32px; }
-        .stat-card { 
-            background: var(--card-bg); border: 1px solid var(--slate-200); 
-            border-radius: var(--radius-lg); padding: 20px; 
-            display: flex; align-items: center; justify-content: space-between; 
-            box-shadow: var(--shadow-sm);
-        }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-sm); }
         .stat-info { display: flex; flex-direction: column; }
         .stat-label { color: var(--slate-500); font-size: 13px; font-weight: 500; margin-bottom: 4px; }
         .stat-number { font-size: 24px; font-weight: 700; color: var(--navy); line-height: 1; }
@@ -246,64 +148,38 @@
         .stat-icon.purple { background: #f3e8ff; color: #9333ea; }
         .stat-icon.orange { background: var(--warning-bg); color: var(--warning); }
 
-        /* ====== PANEL & FILTER ====== */
-        .panel { 
-            background: var(--card-bg); border: 1px solid var(--slate-200); 
-            border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden;
-        }
-        .panel-heading { 
-            padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 1px solid var(--slate-200);
-        }
+        .panel { background: var(--card-bg); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+        .panel-heading { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--slate-200); }
         .panel-heading h2 { font-size: 16px; font-weight: 700; margin: 0; }
         .panel-heading .subtitle { font-size: 13px; font-weight: 500; }
-        
-        .filters { 
-            display: flex; gap: 16px; padding: 16px 24px; 
-            background: #fcfdfd; border-bottom: 1px solid var(--slate-200);
-        }
+
+        .filters { display: flex; gap: 16px; padding: 16px 24px; background: #fcfdfd; border-bottom: 1px solid var(--slate-200); }
         .filter-search-wrapper { position: relative; flex: 1; }
         .filter-search-wrapper svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--slate-500); width: 16px; height: 16px; }
-        .filters input, .filters select { 
-            width: 100%; padding: 9px 14px; border: 1px solid var(--slate-200); 
-            border-radius: var(--radius-md); background: var(--card-bg); 
-            color: var(--navy); font-size: 13px; outline: none; transition: 0.2s;
-        }
+        .filters input, .filters select { width: 100%; padding: 9px 14px; border: 1px solid var(--slate-200); border-radius: var(--radius-md); background: var(--card-bg); color: var(--navy); font-size: 13px; outline: none; transition: 0.2s; }
         .filters input { padding-left: 38px; }
         .filters select { min-width: 180px; width: auto; cursor: pointer; }
         .filters input:focus, .filters select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
 
-        /* ====== KARTU PROPERTI ====== */
         .property-list { display: flex; flex-direction: column; }
-        .property-card { 
-            display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; 
-            padding: 24px; border-bottom: 1px solid var(--slate-200); 
-        }
+        .property-card { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; padding: 24px; border-bottom: 1px solid var(--slate-200); }
         .property-card:last-child { border-bottom: none; }
-        
-        .property-image { 
-            height: 160px; border-radius: var(--radius-md); overflow: hidden; 
-            background: var(--slate-100); border: 1px solid var(--slate-200);
-        }
+
+        .property-image { height: 160px; border-radius: var(--radius-md); overflow: hidden; background: var(--slate-100); border: 1px solid var(--slate-200); }
         .property-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
-        .image-caption { display: none; }
-        
+
         .property-content { display: flex; flex-direction: column; min-width: 0; }
         .property-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
         .property-title { font-size: 18px; font-weight: 700; color: var(--navy); margin: 0 0 4px; }
         .property-address { display: flex; align-items: center; gap: 6px; color: var(--slate-500); font-size: 13px; }
         .property-address svg { width: 14px; height: 14px; color: var(--slate-500); }
-        
-        .status { 
-            display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; 
-            border-radius: 99px; font-size: 12px; font-weight: 600; white-space: nowrap;
-        }
+
+        .status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; white-space: nowrap; }
         .status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-        .status-active { background: var(--success-bg); color: var(--success); } 
-        .status-maintenance { background: var(--warning-bg); color: #d97706; } 
+        .status-active { background: var(--success-bg); color: var(--success); }
+        .status-maintenance { background: var(--warning-bg); color: #d97706; }
         .status-inactive { background: var(--danger-bg); color: var(--danger); }
 
-        /* Metrik Properti */
         .property-metrics { display: flex; gap: 24px; margin-bottom: 20px; }
         .metric { display: flex; flex-direction: column; }
         .metric-label { font-size: 12px; color: var(--slate-500); margin-bottom: 2px; }
@@ -311,113 +187,69 @@
         .metric-value.text-success { color: var(--success); }
         .metric-value.text-warning { color: var(--warning); }
 
-        /* Progress Bar Okupansi */
         .occupancy-wrapper { margin-bottom: 20px; flex: 1; }
         .occupancy-header { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
         .progress-track { height: 6px; background: var(--slate-100); border-radius: 99px; overflow: hidden; }
         .progress-bar { height: 100%; background: var(--primary); border-radius: 99px; }
 
-       /* ====== TOMBOL AKSI (Detail, Edit, Hapus) ====== */
         .property-actions { display: flex; gap: 10px; margin-top: auto; }
-        
-        .btn-secondary { 
-            background-color: #ffffff !important; 
-            color: var(--navy) !important; 
-            border: 1px solid var(--slate-200) !important; 
+
+        .empty-state {
+            padding: 60px 20px; color: var(--slate-500); text-align: center; background: var(--bg-body);
+            border: 1px dashed var(--slate-200); border-radius: var(--radius-lg); margin: 24px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .btn-secondary:hover { background-color: var(--slate-100) !important; }
-        
-        .btn-danger { 
-            background-color: #ffffff !important; 
-            color: var(--danger) !important; 
-            border: 1px solid #fecaca !important; 
+        .empty-state svg { width: 36px; height: 36px; color: #94a3b8; margin-bottom: 12px; display: block; }
+        .empty-state strong { display: block; color: var(--navy); font-size: 15px; margin-bottom: 4px; font-weight: 600; }
+        .empty-state p { margin: 0; font-size: 13px; color: var(--slate-500); }
+
+        /* ====== ANIMASI MODAL FORM PROPERTI (TAMBAH/EDIT/DETAIL) ====== */
+        .property-modal {
+            position: fixed; inset: 0; z-index: 100;
+            background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            padding: 20px; display: flex; align-items: center; justify-content: center; overflow-y: auto;
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .btn-danger:hover { 
-            background-color: var(--danger-bg) !important; 
-            border-color: #fca5a5 !important; 
+        .property-modal.open {
+            opacity: 1; visibility: visible; pointer-events: auto;
         }
-
-       /* Empty State */
-.empty-state { 
-    padding: 60px 20px; 
-    color: var(--slate-500); 
-    text-align: center; 
-    background: var(--bg-body); 
-    border: 1px dashed var(--slate-200); 
-    border-radius: var(--radius-lg); 
-    margin: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.empty-state svg { 
-    width: 36px; 
-    height: 36px; 
-    color: #94a3b8; 
-    margin-bottom: 12px; 
-    display: block;
-}
-
-.empty-state strong { 
-    display: block; 
-    color: var(--navy); 
-    font-size: 15px; 
-    margin-bottom: 4px; 
-    font-weight: 600; 
-}
-
-.empty-state p {
-    margin: 0;
-    font-size: 13px;
-    color: var(--slate-500);
-}
-
-.empty-state p {
-    margin: 0;
-    font-size: 13px;
-    color: var(--slate-500);
-}
-
-        /* ====== MODAL ====== */
-        .property-modal { 
-            display: none; position: fixed; inset: 0; z-index: 100; 
-            background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
-            padding: 20px; align-items: center; justify-content: center; overflow-y: auto; 
-        }
-        .property-modal-content { 
-            background: var(--card-bg); width: 100%; max-width: 600px; padding: 28px; 
+        .property-modal-content {
+            background: var(--card-bg); width: 100%; max-width: 600px; padding: 28px;
             border-radius: var(--radius-xl); box-shadow: var(--shadow-modal); position: relative;
+            transform: scale(0.88) translateY(16px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .property-modal.open .property-modal-content {
+            transform: scale(1) translateY(0);
         }
         .modal-heading { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
-        .modal-heading h2 { margin: 0 0 4px; font-size: 18px; font-weight: 700; } 
+        .modal-heading h2 { margin: 0 0 4px; font-size: 18px; font-weight: 700; }
         .modal-heading p { margin: 0; color: var(--slate-500); font-size: 13px; }
-        .modal-close { 
-            border: 0; background: transparent; color: var(--slate-500); border-radius: var(--radius-md); 
-            width: 32px; height: 32px; display: grid; place-items: center; transition: 0.2s;
+        .modal-close {
+            border: 0; background: transparent; color: var(--slate-500); border-radius: var(--radius-md);
+            width: 32px; height: 32px; display: grid; place-items: center; transition: 0.2s; cursor: pointer;
         }
         .modal-close:hover { background: var(--slate-100); color: var(--navy); }
         .modal-close svg { width: 20px; height: 20px; }
 
         .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-group.full { grid-column: 1 / -1; } 
+        .form-group.full { grid-column: 1 / -1; }
         .form-group label { font-weight: 600; font-size: 13px; color: var(--navy); }
-        .form-group input, .form-group select { 
-            width: 100%; padding: 10px 14px; border: 1px solid var(--slate-200); 
+        .form-group input, .form-group select {
+            width: 100%; padding: 10px 14px; border: 1px solid var(--slate-200);
             border-radius: var(--radius-md); background: var(--card-bg); font-size: 13px;
             transition: 0.2s; outline: none;
         }
         .form-group input:focus, .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
         .form-group small { color: var(--slate-500); font-size: 12px; }
-        
+
         .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--slate-200); }
 
-        /* Khusus Modal Detail */
-        .detail-image-box { 
-            height: 220px; background: var(--slate-100); border-radius: var(--radius-lg); 
-            overflow: hidden; display: grid; place-items: center; color: var(--slate-500); margin-bottom: 24px; 
+        .detail-image-box {
+            height: 220px; background: var(--slate-100); border-radius: var(--radius-lg);
+            overflow: hidden; display: grid; place-items: center; color: var(--slate-500); margin-bottom: 24px;
             border: 1px solid var(--slate-200);
         }
         .detail-info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 20px; }
@@ -426,51 +258,25 @@
         .detail-box span { display: block; color: var(--slate-500); font-size: 12px; margin-bottom: 4px; }
         .detail-box strong { font-size: 14px; color: var(--navy); }
 
-        /* ====== RESPONSIVE ====== */
-        .bottom-nav { display: none; }
-        
-        @media (max-width: 1024px) {
-            .sidebar { width: 200px; padding: 24px 12px; }
-            .main { padding: 24px; }
-            .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .property-card { grid-template-columns: 180px minmax(0, 1fr); gap: 20px; }
-        }
-        
         @media (max-width: 768px) {
             .topbar { padding: 0 16px; gap: 16px; }
             .brand { width: auto; }
             .top-search, .sidebar { display: none; }
             .main { padding: 20px 16px 80px; }
-            
             .page-heading { flex-direction: column; gap: 16px; }
             .page-heading .btn { width: 100%; }
-            
             .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-            .stat-card { padding: 16px; flex-direction: column; align-items: flex-start; gap: 12px; }
-            
             .filters { flex-direction: column; padding: 16px; }
             .property-card { grid-template-columns: 1fr; padding: 20px; }
             .property-image { height: 200px; }
             .property-metrics { gap: 16px; flex-wrap: wrap; }
             .property-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-            .property-actions form, .property-actions button { width: 100%; margin: 0; }
-            .property-actions form { grid-column: 1 / -1; }
-
-            .bottom-nav { 
-                display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
-                justify-content: space-around; padding: 12px 8px; 
-                background: rgba(255, 255, 255, 0.95); border-top: 1px solid var(--slate-200); backdrop-filter: blur(10px); 
-            }
-            .bottom-nav a { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--slate-500); text-decoration: none; font-size: 11px; font-weight: 500; }
-            .bottom-nav a.active { color: var(--primary); }
-            .bottom-nav svg { width: 20px; height: 20px; }
-            
             .form-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-<!-- HEADER -->
+
 <header class="topbar">
     <div class="brand">
         <img src="{{ asset('images/alivare-logo.png') }}" alt="Logo Alivare">
@@ -484,9 +290,12 @@
     </div>
 
     <div class="top-actions">
-        <button class="icon-button" type="button" aria-label="Notifikasi">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        </button>
+        <a href="{{ route('dashboard.pengumuman') }}" class="icon-button" aria-label="Buka Pengumuman" title="Pengumuman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+        </a>
 
         <div class="account-menu">
             <button class="avatar" id="accountMenuButton" type="button" aria-expanded="false" aria-controls="accountDropdown">
@@ -499,19 +308,16 @@
                 </div>
 
                 <div class="account-divider"></div>
-                
-               <a href="{{ route('profile.edit') }}" class="account-item"
-   style="text-decoration: none;">
-    <span class="account-icon">
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-        </svg>
-    </span>
-    <span>Profil Saya</span>
-</a>
+
+                <a href="{{ route('profile.edit') }}" class="account-item" style="text-decoration: none;">
+                    <span class="account-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </span>
+                    <span>Profil Saya</span>
+                </a>
 
                 <div class="account-divider"></div>
                 <form method="POST" action="{{ route('logout') }}">
@@ -527,12 +333,10 @@
 </header>
 
 <div class="layout">
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         @include('components.sidebar-menu')
     </aside>
 
-    <!-- MAIN CONTENT -->
     <main class="main">
         <section class="page-heading">
             <div>
@@ -560,7 +364,6 @@
             $vacantRooms = max(0, $totalRooms - $occupiedRooms);
         @endphp
 
-        <!-- STATISTIK -->
         <section class="stats">
             <div class="stat-card">
                 <div class="stat-info">
@@ -576,10 +379,7 @@
                 </div>
                 <div class="stat-icon purple">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2 4v16"/>
-                        <path d="M2 8h18a2 2 0 0 1 2 2v10"/>
-                        <path d="M2 17h20"/>
-                        <circle cx="6" cy="11" r="2"/>
+                        <path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><circle cx="6" cy="11" r="2"/>
                     </svg>
                 </div>
             </div>
@@ -597,17 +397,12 @@
                 </div>
                 <div class="stat-icon orange">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2 4v16"/>
-                        <path d="M2 8h18a2 2 0 0 1 2 2v10"/>
-                        <path d="M2 17h20"/>
-                        <path d="M6 11h4"/>
-                        <path d="M8 9v4"/>
+                        <path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 11h4"/><path d="M8 9v4"/>
                     </svg>
                 </div>
             </div>
         </section>
 
-        <!-- PANEL DAFTAR PROPERTI -->
         <section class="panel" id="daftar-properti">
             <div class="panel-heading">
                 <h2>Daftar Properti</h2>
@@ -662,7 +457,7 @@
                                 </div>
                                 <span class="status {{ $statusClass }}">{{ ucfirst($status) }}</span>
                             </div>
-                            
+
                             <div class="property-metrics">
                                 <div class="metric"><span class="metric-label">Total Kamar</span><span class="metric-value">{{ $total }}</span></div>
                                 <div class="metric"><span class="metric-label">Terisi</span><span class="metric-value text-success">{{ $occupied }}</span></div>
@@ -673,7 +468,7 @@
                                 <div class="occupancy-header"><span>Tingkat Okupansi</span><span>{{ $occupancy }}%</span></div>
                                 <div class="progress-track"><div class="progress-bar" style="width:{{ $occupancy }}%"></div></div>
                             </div>
-                            
+
                             <div class="property-actions">
                                 <button type="button" class="btn btn-primary" onclick="openDetailModal(this)"
                                     data-name="{{ $property->name }}" data-address="{{ $property->address }}" data-location="{{ $property->location }}"
@@ -687,10 +482,10 @@
                                     data-occupied-rooms="{{ $property->occupied_rooms }}" data-status="{{ $property->status }}">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Edit
                                 </button>
-                               <button type="button" class="btn btn-danger"
-    onclick="openDeleteModal('{{ route('properties.destroy', ['property' => $property->id]) }}', @js($property->name), 'Properti')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Hapus
-</button>
+                                <button type="button" class="btn btn-danger"
+                                    onclick="openDeleteModal('{{ route('properties.destroy', ['property' => $property->id]) }}', @js($property->name), 'Properti')">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Hapus
+                                </button>
                             </div>
                         </div>
                     </article>
@@ -702,19 +497,19 @@
                     </div>
                 @endforelse
             </div>
-            
-           @if ($totalProperties > 0)
-    <div class="empty-state" id="emptyState" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <strong>Pencarian tidak ditemukan</strong>
-        <p>Coba gunakan kata kunci atau filter lain.</p>
-    </div>
-@endif
+
+            @if ($totalProperties > 0)
+                <div class="empty-state" id="emptyState" style="display:none">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <strong>Pencarian tidak ditemukan</strong>
+                    <p>Coba gunakan kata kunci atau filter lain.</p>
+                </div>
+            @endif
         </section>
     </main>
 </div>
 
-<!-- ====== MODAL TAMBAH PROPERTI ====== -->
+<!-- MODAL TAMBAH PROPERTI -->
 <div class="property-modal" id="propertyModal">
     <div class="property-modal-content">
         <div class="modal-heading">
@@ -740,7 +535,7 @@
     </div>
 </div>
 
-<!-- ====== MODAL EDIT PROPERTI ====== -->
+<!-- MODAL EDIT PROPERTI -->
 <div class="property-modal" id="editPropertyModal">
     <div class="property-modal-content">
         <div class="modal-heading">
@@ -766,7 +561,7 @@
     </div>
 </div>
 
-<!-- ====== MODAL DETAIL ====== -->
+<!-- MODAL DETAIL PROPERTI -->
 <div class="property-modal" id="detailPropertyModal">
     <div class="property-modal-content">
         <div class="modal-heading">
@@ -797,18 +592,15 @@
     </div>
 </div>
 
-<!-- Bottom Nav (Mobile) -->
-<nav class="bottom-nav">
-    <a href="{{ route('dashboard.pemilik') }}" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Properti</a>
-    <a href="{{ route('dashboard.kamar') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><rect x="7" y="7" width="3" height="9"/><rect x="14" y="7" width="3" height="5"/></svg> Kamar</a>
-    <a href="{{ route('dashboard.penyewa') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Penyewa</a>
-    <a href="{{ route('dashboard.tagihan') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Tagihan</a>
-</nav>
-
-<!-- ====== JAVASCRIPT ====== -->
 <script>
-function showModal(id) { const modal = document.getElementById(id); if (modal) modal.style.display = 'flex'; }
-function hideModal(id) { const modal = document.getElementById(id); if (modal) modal.style.display = 'none'; }
+function showModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.add('open');
+}
+function hideModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.remove('open');
+}
 
 function openEditModal(btn) {
     const form = document.getElementById('editPropertyForm');
@@ -829,7 +621,7 @@ function openDetailModal(btn) {
     const vacant = Math.max(0, total - occupied);
     const occupancy = total > 0 ? Math.round(occupied / total * 100) : 0;
     const status = (btn.dataset.status || 'aktif').toLowerCase();
-    
+
     document.getElementById('detailName').textContent = btn.dataset.name || '-';
     document.getElementById('detailAddress').textContent = btn.dataset.address || '-';
     document.getElementById('detailLocation').textContent = btn.dataset.location || '-';
@@ -838,27 +630,29 @@ function openDetailModal(btn) {
     document.getElementById('detailVacantRooms').textContent = vacant + ' kamar';
     document.getElementById('detailOccupancyValue').textContent = occupancy + '%';
     document.getElementById('detailOccupancyBar').style.width = occupancy + '%';
-    
+
     const statusEl = document.getElementById('detailStatus');
     statusEl.textContent = ({aktif:'Aktif',maintenance:'Maintenance',nonaktif:'Nonaktif'})[status] || status;
     statusEl.className = 'status ' + (status === 'aktif' ? 'status-active' : status === 'maintenance' ? 'status-maintenance' : 'status-inactive');
-    
+
     const image = document.getElementById('detailImage');
     const placeholder = document.getElementById('detailImagePlaceholder');
     const url = btn.dataset.image || '';
-    
+
     image.onerror = () => { image.style.display = 'none'; placeholder.style.display = 'flex'; };
-    if (url) { image.src = url; image.style.display = 'block'; placeholder.style.display = 'none'; } 
+    if (url) { image.src = url; image.style.display = 'block'; placeholder.style.display = 'none'; }
     else { image.removeAttribute('src'); image.style.display = 'none'; placeholder.style.display = 'flex'; }
-    
+
     showModal('detailPropertyModal');
 }
 
-// Interaksi Modal & Esc
-document.querySelectorAll('.property-modal').forEach(m => { m.addEventListener('click', e => { if (e.target === m) m.style.display = 'none'; }); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.property-modal').forEach(m => m.style.display = 'none'); });
+document.querySelectorAll('.property-modal').forEach(m => {
+    m.addEventListener('click', e => { if (e.target === m) hideModal(m.id); });
+});
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.property-modal').forEach(m => hideModal(m.id));
+});
 
-// Menu Akun
 const accBtn = document.getElementById('accountMenuButton');
 const accDrop = document.getElementById('accountDropdown');
 if (accBtn && accDrop) {
@@ -867,7 +661,6 @@ if (accBtn && accDrop) {
     document.addEventListener('click', () => { accDrop.hidden = true; accBtn.setAttribute('aria-expanded', 'false'); });
 }
 
-// Logika Filter & Pencarian (Dipertahankan 100%)
 const pSearch = document.getElementById('propertySearch');
 const gSearch = document.getElementById('globalSearch');
 const lFilter = document.getElementById('locationFilter');
@@ -881,14 +674,14 @@ function filterData() {
     const loc = lFilter?.value || '';
     const stat = sFilter?.value || '';
     let visible = 0;
-    
+
     cards.forEach(card => {
         const match = (!query || card.dataset.name.includes(query) || card.textContent.toLowerCase().includes(query)) &&
                       (!loc || card.dataset.location === loc) && (!stat || card.dataset.status === stat);
         card.style.display = match ? '' : 'none';
         if (match) visible++;
     });
-    
+
     if (rCount) rCount.textContent = visible + ' properti';
     eStates.forEach(el => el.style.display = (cards.length > 0 && visible === 0) || cards.length === 0 ? 'flex' : 'none');
 }
@@ -898,6 +691,7 @@ gSearch?.addEventListener('input', () => { if (pSearch) pSearch.value = ''; filt
 lFilter?.addEventListener('change', filterData);
 sFilter?.addEventListener('change', filterData);
 </script>
+
 @include('components.delete-confirm-modal')
 </body>
 </html>

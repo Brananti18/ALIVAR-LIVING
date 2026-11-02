@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\IncomeReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\RoomController;
@@ -9,9 +12,6 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\TenantProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IncomeReportController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\AnnouncementController;
 
 // ========================================
 // SPLASH SCREEN
@@ -62,55 +62,47 @@ Route::middleware('auth')->group(function () {
 });
 
 // ========================================
-// DASHBOARD BERDASARKAN ROLE
+// DASHBOARD ADMIN & MONITORING
 // ========================================
-
 
 Route::get('/dashboard/admin', [AdminDashboardController::class, 'index'])
     ->middleware(['auth', 'role:admin'])
     ->name('dashboard.admin');
 
-    
-Route::get('/dashboard/admin/pengguna', [
-    AdminDashboardController::class,
-    'users'
-])
+Route::get('/dashboard/admin/pengguna', [AdminDashboardController::class, 'users'])
     ->middleware(['auth', 'role:admin'])
     ->name('admin.users');
 
-    Route::get('/dashboard/admin/monitoring', [
-    AdminDashboardController::class,
-    'monitoring'
-])
+Route::get('/dashboard/admin/monitoring', [AdminDashboardController::class, 'monitoring'])
     ->middleware(['auth', 'role:admin'])
     ->name('admin.monitoring');
 
-    
- // ========================================
- // PENGUMUMAN ADMIN
- // ========================================
+// ========================================
+// PENGUMUMAN ADMIN
+// ========================================
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get(
-        '/dashboard/admin/pengumuman',
-        [AnnouncementController::class, 'index']
-    )->name('admin.announcements');
+    Route::get('/dashboard/admin/pengumuman', [AnnouncementController::class, 'index'])
+        ->name('admin.announcements');
 
-    Route::post(
-        '/dashboard/admin/pengumuman',
-        [AnnouncementController::class, 'store']
-    )->name('admin.announcements.store');
+    Route::post('/dashboard/admin/pengumuman', [AnnouncementController::class, 'store'])
+        ->name('admin.announcements.store');
 
-    Route::delete(
-        '/dashboard/admin/pengumuman/{announcement}',
-        [AnnouncementController::class, 'destroy']
-    )->name('admin.announcements.destroy');
+    Route::delete('/dashboard/admin/pengumuman/{announcement}', [AnnouncementController::class, 'destroy'])
+        ->name('admin.announcements.destroy');
 });
 
+// ========================================
+// DASHBOARD PEMILIK & PENGUMUMAN
+// ========================================
 
 Route::get('/dashboard/pemilik', [PropertyController::class, 'index'])
     ->middleware(['auth', 'role:pemilik'])
     ->name('dashboard.pemilik');
+
+Route::get('/dashboard/pemilik/pengumuman', [AnnouncementController::class, 'ownerIndex'])
+    ->middleware(['auth', 'role:pemilik'])
+    ->name('dashboard.pengumuman');
 
 Route::get('/dashboard/user', function () {
     return view('dashboard.user');
@@ -178,10 +170,7 @@ Route::delete('/dashboard/pemilik/penyewa/{tenant}', [TenantController::class, '
 // PROFIL SEWA / RINGKASAN KONTRAK PENYEWA
 // ========================================
 
-Route::get(
-    '/dashboard/pemilik/penyewa/{tenant}/profil-sewa',
-    [TenantProfileController::class, 'show']
-)
+Route::get('/dashboard/pemilik/penyewa/{tenant}/profil-sewa', [TenantProfileController::class, 'show'])
     ->middleware(['auth', 'role:pemilik'])
     ->name('dashboard.profil-sewa');
 
@@ -205,10 +194,6 @@ Route::delete('/dashboard/pemilik/tagihan/{bill}', [BillController::class, 'dest
     ->middleware(['auth', 'role:pemilik'])
     ->name('bills.destroy');
 
-Route::get(
-    '/dashboard/pemilik/laporan-pendapatan',
-    [IncomeReportController::class, 'index']
-)->middleware(['auth', 'role:pemilik'])
-  ->name('dashboard.laporan-pendapatan');
-
-
+Route::get('/dashboard/pemilik/laporan-pendapatan', [IncomeReportController::class, 'index'])
+    ->middleware(['auth', 'role:pemilik'])
+    ->name('dashboard.laporan-pendapatan');

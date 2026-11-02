@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Property;
 use App\Models\Room;
 use App\Models\Tenant;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller

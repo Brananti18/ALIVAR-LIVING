@@ -6,17 +6,14 @@
     <title>Laporan Pendapatan - ALIVARE</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            /* Warna SaaS Premium (KONSISTEN DENGAN PROPERTI) */
-            --primary: #2563eb; 
+            --primary: #2563eb;
             --primary-hover: #1d4ed8;
             --primary-soft: #eff6ff;
-            --navy: #0f172a; 
+            --navy: #0f172a;
             --navy-light: #1e293b;
             --slate-100: #f1f5f9;
             --slate-200: #e2e8f0;
@@ -24,16 +21,12 @@
             --slate-800: #1e293b;
             --bg-body: #f8fafc;
             --card-bg: #ffffff;
-            
-            /* Status Colors */
             --success: #10b981;
             --success-bg: #ecfdf5;
             --warning: #f59e0b;
             --warning-bg: #fffbeb;
             --danger: #ef4444;
             --danger-bg: #fef2f2;
-            
-            /* Geometri */
             --radius-sm: 6px;
             --radius-md: 8px;
             --radius-lg: 12px;
@@ -42,58 +35,41 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
-        body { 
+        body {
             margin: 0;
-            background: var(--bg-body); 
-            color: var(--navy); 
+            background: var(--bg-body);
+            color: var(--navy);
             font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        button, input, select { font: inherit; } 
+        button, input, select { font: inherit; }
         button { cursor: pointer; }
 
-        /* ====== HEADER TOPBAR ====== */
-        .topbar { 
-            min-height: 70px; padding: 0 24px; 
-            display: flex; align-items: center; justify-content: space-between; gap: 32px; 
-            background: var(--card-bg); border-bottom: 1px solid var(--slate-200); 
-            position: sticky; top: 0; z-index: 30; 
+        .topbar {
+            min-height: 70px; padding: 0 24px;
+            display: flex; align-items: center; justify-content: space-between; gap: 32px;
+            background: var(--card-bg); border-bottom: 1px solid var(--slate-200);
+            position: sticky; top: 0; z-index: 30;
         }
-        
-        .brand { 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100%; 
-            width: 170px; 
-        }
-        .brand img { 
-            height: 44px !important; 
-            width: auto !important; 
-            max-width: 100% !important; 
-            object-fit: contain; 
-        }
+        .brand { display: flex; align-items: center; justify-content: center; height: 100%; width: 170px; }
+        .brand img { height: 44px !important; width: auto !important; max-width: 100% !important; object-fit: contain; }
 
         .top-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
-        .icon-button { 
-            width: 38px; height: 38px; display: grid; place-items: center; 
+        .icon-button {
+            width: 38px; height: 38px; display: grid; place-items: center;
             border: 0; border-radius: 50%; background: transparent; color: var(--slate-500); transition: 0.2s;
         }
         .icon-button:hover { background: var(--slate-100); color: var(--navy); }
         .icon-button svg { width: 20px; height: 20px; }
-        
-        .avatar { 
-            width: 38px; height: 38px; 
-            border: 1.5px solid #bfdbfe; 
-            border-radius: 50%; 
-            background: #dbeafe; 
-            color: #1d4ed8; 
-            display: grid; place-items: center; 
+
+        .avatar {
+            width: 38px; height: 38px;
+            border: 1.5px solid #bfdbfe; border-radius: 50%;
+            background: #dbeafe; color: #1d4ed8;
+            display: grid; place-items: center;
             font-weight: 700; font-size: 15px; cursor: pointer;
             transition: all 0.2s ease;
             box-shadow: 0 1px 3px rgba(37, 99, 235, 0.12);
@@ -101,19 +77,19 @@
         .avatar:hover { background: #bfdbfe; border-color: #93c5fd; color: #1e40af; }
 
         .account-menu { position: relative; }
-        .account-dropdown { 
-            position: absolute; top: calc(100% + 8px); right: 0; width: 240px; padding: 8px; 
-            background: var(--card-bg); border: 1px solid var(--slate-200); 
-            border-radius: var(--radius-lg); box-shadow: var(--shadow-md); z-index: 100; 
+        .account-dropdown {
+            position: absolute; top: calc(100% + 8px); right: 0; width: 240px; padding: 8px;
+            background: var(--card-bg); border: 1px solid var(--slate-200);
+            border-radius: var(--radius-lg); box-shadow: var(--shadow-md); z-index: 100;
         }
         .account-dropdown[hidden] { display: none; }
         .account-info { padding: 8px 12px; display: flex; flex-direction: column; }
         .account-info strong { font-size: 14px; color: var(--navy); }
         .account-info small { color: var(--slate-500); font-size: 12px; }
         .account-divider { height: 1px; background: var(--slate-200); margin: 6px 0; }
-        .account-item { 
-            width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 12px; 
-            border: 0; border-radius: var(--radius-sm); background: transparent; 
+        .account-item {
+            width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+            border: 0; border-radius: var(--radius-sm); background: transparent;
             color: var(--slate-800); font-size: 13px; font-weight: 500; transition: 0.2s; text-decoration: none;
         }
         .account-item:hover { background: var(--slate-100); color: var(--primary); }
@@ -123,84 +99,42 @@
         .account-logout { color: var(--danger); }
         .account-logout:hover { background: var(--danger-bg); color: var(--danger); }
 
-        /* ====== LAYOUT & SIDEBAR ====== */
         .layout { display: flex; min-height: calc(100vh - 70px); }
         .sidebar { width: 220px; padding: 24px 16px; background: var(--card-bg); border-right: 1px solid var(--slate-200); flex-shrink: 0; }
         .main { flex: 1; min-width: 0; max-width: 1280px; margin: 0 auto; padding: 32px; }
 
-        /* ====== HEADING & BUTTONS ====== */
         .page-heading { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
         h1 { margin: 0 0 4px; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
         .subtitle { color: var(--slate-500); margin: 0; font-size: 14px; }
-        
-        .btn { 
-            display: inline-flex !important; 
-            flex-direction: row !important; 
-            align-items: center !important; 
-            justify-content: center !important; 
-            gap: 8px !important;
-            padding: 10px 18px !important; 
-            border-radius: var(--radius-md) !important; 
-            font-size: 13px !important; 
-            font-weight: 600 !important; 
-            text-decoration: none !important; 
-            transition: all 0.2s ease !important; 
-            white-space: nowrap !important;
-            cursor: pointer !important;
+
+        .btn {
+            display: inline-flex !important; flex-direction: row !important; align-items: center !important;
+            justify-content: center !important; gap: 8px !important; padding: 10px 18px !important;
+            border-radius: var(--radius-md) !important; font-size: 13px !important; font-weight: 600 !important;
+            text-decoration: none !important; transition: all 0.2s ease !important; white-space: nowrap !important; cursor: pointer !important;
         }
-        .btn svg { 
-            width: 16px !important; height: 16px !important; 
-            max-width: 16px !important; max-height: 16px !important; 
-            flex: 0 0 16px !important; display: inline-block !important; 
-        }
-        .btn-primary { 
-            background-color: var(--primary) !important; 
-            color: #ffffff !important; 
-            border: 1px solid var(--primary) !important; 
-            box-shadow: var(--shadow-sm) !important; 
-        }
-        .btn-primary:hover { 
-            background-color: var(--primary-hover) !important; 
-            transform: translateY(-1px); 
-            box-shadow: var(--shadow-md) !important; 
-        }
-        .btn-secondary { 
-            background-color: #ffffff !important; 
-            color: var(--navy) !important; 
-            border: 1px solid var(--slate-200) !important; 
-        }
+        .btn svg { width: 16px !important; height: 16px !important; max-width: 16px !important; max-height: 16px !important; flex: 0 0 16px !important; display: inline-block !important; }
+        .btn-primary { background-color: var(--primary) !important; color: #ffffff !important; border: 1px solid var(--primary) !important; box-shadow: var(--shadow-sm) !important; }
+        .btn-primary:hover { background-color: var(--primary-hover) !important; transform: translateY(-1px); box-shadow: var(--shadow-md) !important; }
+        .btn-secondary { background-color: #ffffff !important; color: var(--navy) !important; border: 1px solid var(--slate-200) !important; }
         .btn-secondary:hover { background-color: var(--slate-100) !important; }
 
-        /* ====== AREA FILTER LAPORAN ====== */
-        .filter-panel { 
-            background: var(--card-bg); border: 1px solid var(--slate-200); 
-            border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 24px; 
-            box-shadow: var(--shadow-sm);
-        }
+        .filter-panel { background: var(--card-bg); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 24px; box-shadow: var(--shadow-sm); }
         .filter-form { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
         .filter-inputs { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
         .filter-group { display: flex; align-items: center; gap: 8px; }
         .filter-group label { font-size: 13px; font-weight: 600; color: var(--slate-500); white-space: nowrap; }
-        .select-control { 
-            padding: 8px 12px; border: 1px solid var(--slate-200); 
-            border-radius: var(--radius-md); background: var(--card-bg); 
-            font-size: 13px; color: var(--navy); outline: none; cursor: pointer;
-        }
+        .select-control { padding: 8px 12px; border: 1px solid var(--slate-200); border-radius: var(--radius-md); background: var(--card-bg); font-size: 13px; color: var(--navy); outline: none; cursor: pointer; }
         .select-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
 
-        /* ====== STATS KEUANGAN (4 GRID) ====== */
         .stats-grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-bottom: 24px; }
-        .stat-card-financial { 
-            background: var(--card-bg); border: 1px solid var(--slate-200); 
-            border-radius: var(--radius-lg); padding: 20px; 
-            box-shadow: var(--shadow-sm); position: relative; overflow: hidden; 
-        }
+        .stat-card-financial { background: var(--card-bg); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
         .stat-card-financial::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; }
         .stat-card-financial.blue::before { background-color: var(--primary); }
         .stat-card-financial.red::before { background-color: var(--danger); }
         .stat-card-financial.green::before { background-color: var(--success); }
         .stat-card-financial.amber::before { background-color: var(--warning); }
-        
+
         .stat-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
         .stat-card-title { font-size: 12px; font-weight: 600; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.5px; }
         .stat-icon-wrapper { width: 32px; height: 32px; border-radius: var(--radius-md); display: grid; place-items: center; }
@@ -208,18 +142,17 @@
         .stat-card-financial.red .stat-icon-wrapper { background: var(--danger-bg); color: var(--danger); }
         .stat-card-financial.green .stat-icon-wrapper { background: var(--success-bg); color: var(--success); }
         .stat-card-financial.amber .stat-icon-wrapper { background: var(--warning-bg); color: var(--warning); }
-        
+
         .stat-value { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 4px; white-space: nowrap; }
         .stat-desc { font-size: 12px; color: var(--slate-500); }
 
-        /* ====== PANEL DUA KOLOM: CHART & KATEGORI ====== */
         .chart-category-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 24px; }
         .panel { background: var(--card-bg); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; padding: 20px; }
         .panel-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
         .panel-title svg { width: 18px; height: 18px; color: var(--primary); }
-        
+
         .chart-container-box { position: relative; width: 100%; height: 260px; }
-        
+
         .category-list { display: flex; flex-direction: column; gap: 12px; }
         .category-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-radius: var(--radius-md); background: var(--bg-body); border: 1px solid var(--slate-200); }
         .category-info { display: flex; align-items: center; gap: 10px; }
@@ -227,33 +160,23 @@
         .category-name { font-size: 13px; font-weight: 600; color: var(--navy); }
         .category-amount { font-size: 14px; font-weight: 700; color: var(--navy); }
 
-        /* ====== TABEL TRANSAKSI ====== */
         .table-wrapper { width: 100%; overflow-x: auto; border: 1px solid var(--slate-200); border-radius: var(--radius-md); }
         .table-clean { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
         .table-clean th { background-color: var(--bg-body); color: var(--slate-500); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 12px 16px; border-bottom: 1px solid var(--slate-200); }
         .table-clean td { padding: 14px 16px; border-bottom: 1px solid var(--slate-100); color: var(--navy); }
         .table-clean tr:last-child td { border-bottom: none; }
         .table-clean tr:hover td { background-color: var(--bg-body); }
-        
+
         .badge-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; }
         .badge-status.paid { background-color: var(--success-bg); color: var(--success); }
         .badge-status.unpaid { background-color: var(--warning-bg); color: #d97706; }
         .badge-dot { width: 6px; height: 6px; border-radius: 50%; background-color: currentColor; }
 
-        /* ====== MEDIA PRINT ====== */
         @media print {
             .topbar, .sidebar, .filter-panel, .btn { display: none !important; }
             .layout { display: block !important; }
             .main { padding: 0 !important; max-width: 100% !important; }
             .panel, .stat-card-financial { box-shadow: none !important; border: 1px solid #cbd5e1 !important; break-inside: avoid; }
-        }
-
-        /* ====== RESPONSIVE ====== */
-        @media (max-width: 1024px) {
-            .sidebar { width: 200px; padding: 24px 12px; }
-            .main { padding: 24px; }
-            .stats-grid-4 { grid-template-columns: repeat(2, 1fr); }
-            .chart-category-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
@@ -292,16 +215,18 @@
     $chartValues = $monthlyIncome ?? $chartData ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 @endphp
 
-<!-- HEADER TOPBAR -->
 <header class="topbar">
     <div class="brand">
         <img src="{{ asset('images/alivare-logo.png') }}" alt="Logo Alivare">
     </div>
 
     <div class="top-actions">
-        <button class="icon-button" type="button" aria-label="Notifikasi">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        </button>
+        <a href="{{ route('dashboard.pengumuman') }}" class="icon-button" aria-label="Buka Pengumuman" title="Pengumuman" style="text-decoration: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+        </a>
 
         <div class="account-menu">
             <button class="avatar" id="accountMenuButton" type="button" aria-expanded="false" aria-controls="accountDropdown">
@@ -314,7 +239,7 @@
                 </div>
 
                 <div class="account-divider"></div>
-                
+
                 <a href="{{ route('profile.edit') }}" class="account-item">
                     <span class="account-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -339,14 +264,11 @@
 </header>
 
 <div class="layout">
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         @include('components.sidebar-menu')
     </aside>
 
-    <!-- KONTEN UTAMA LAPORAN -->
     <main class="main">
-        <!-- HEADER HALAMAN & AKSI CETAK -->
         <section class="page-heading">
             <div>
                 <h1>Laporan Pendapatan</h1>
@@ -362,7 +284,6 @@
             </button>
         </section>
 
-        <!-- AREA FILTER LAPORAN -->
         <div class="filter-panel">
             <form method="GET" action="{{ url()->current() }}" class="filter-form">
                 <div class="filter-inputs">
@@ -380,9 +301,7 @@
                     <div class="filter-group">
                         <label for="tahun">Tahun:</label>
                         <select name="tahun" id="tahun" class="select-control">
-                            @php
-                                $currentY = (int) date('Y');
-                            @endphp
+                            @php $currentY = (int) date('Y'); @endphp
                             @for($y = $currentY - 3; $y <= $currentY + 1; $y++)
                                 <option value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>
                                     {{ $y }}
@@ -401,7 +320,6 @@
             </form>
         </div>
 
-        <!-- KARTU RINGKASAN KEUANGAN (4 GRID) -->
         <div class="stats-grid-4">
             <div class="stat-card-financial blue">
                 <div class="stat-card-head">
@@ -460,7 +378,6 @@
             </div>
         </div>
 
-        <!-- DUA KOLOM: GRAFIK & KATEGORI -->
         <div class="chart-category-grid">
             <div class="panel">
                 <div class="panel-title">
@@ -524,7 +441,6 @@
             </div>
         </div>
 
-        <!-- TABEL RIWAYAT TRANSAKSI -->
         <div class="panel">
             <div class="panel-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -536,9 +452,7 @@
                 <span>Riwayat Transaksi Masuk & Keluar</span>
             </div>
 
-            @php
-                $trxList = $transactions ?? $recentTransactions ?? $bills ?? collect();
-            @endphp
+            @php $trxList = $transactions ?? $recentTransactions ?? $bills ?? collect(); @endphp
 
             <div class="table-wrapper">
                 <table class="table-clean">
@@ -608,7 +522,6 @@
     </main>
 </div>
 
-<!-- SCRIPT INISIALISASI CHART.JS & DROPDOWN AKUN -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const ctx = document.getElementById('incomeChart');
@@ -667,11 +580,8 @@
                             color: '#64748b',
                             font: { family: 'Instrument Sans', size: 11 },
                             callback: function(value) {
-                                if (value >= 1000000) {
-                                    return 'Rp ' + (value / 1000000) + ' Jt';
-                                } else if (value >= 1000) {
-                                    return 'Rp ' + (value / 1000) + ' Rb';
-                                }
+                                if (value >= 1000000) return 'Rp ' + (value / 1000000) + ' Jt';
+                                else if (value >= 1000) return 'Rp ' + (value / 1000) + ' Rb';
                                 return 'Rp ' + value;
                             }
                         }
@@ -681,7 +591,6 @@
         });
     });
 
-    // Menu Akun Dropdown
     const accBtn = document.getElementById('accountMenuButton');
     const accDrop = document.getElementById('accountDropdown');
     if (accBtn && accDrop) {
@@ -690,6 +599,6 @@
         document.addEventListener('click', () => { accDrop.hidden = true; accBtn.setAttribute('aria-expanded', 'false'); });
     }
 </script>
-
+@include('components.delete-confirm-modal')
 </body>
 </html>

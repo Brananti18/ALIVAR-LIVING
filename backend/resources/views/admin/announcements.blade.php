@@ -19,10 +19,12 @@
             --slate-500: #64748b;
             --slate-800: #1e293b;
             --danger: #ef4444;
+            --danger-hover: #dc2626;
             --danger-bg: #fef2f2;
             --radius-md: 8px;
             --radius-lg: 12px;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-modal: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -132,11 +134,11 @@
         .checkbox { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; color: var(--navy); cursor: pointer; }
         .checkbox input { width: 16px; height: 16px; accent-color: var(--blue); }
 
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 18px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; cursor: pointer; border: 0; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 18px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; cursor: pointer; border: 0; transition: all 0.2s ease; }
         .btn-primary { background: var(--blue); color: #ffffff; }
         .btn-primary:hover { background: var(--blue-hover); }
         .btn-danger { background: #ffffff; color: var(--danger); border: 1px solid #fecaca; }
-        .btn-danger:hover { background: var(--danger-bg); }
+        .btn-danger:hover { background: var(--danger-bg); border-color: #fca5a5; }
 
         .message { padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 20px; font-size: 13px; font-weight: 500; }
         .success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
@@ -152,7 +154,7 @@
         .badge-active { background: #ecfdf5; color: #10b981; }
         .badge-inactive { background: var(--slate-100); color: var(--slate-500); }
 
-        .announcement-actions { margin-top: 16px; pt: 12px; border-top: 1px dashed var(--slate-200); }
+        .announcement-actions { margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--slate-200); }
         .empty { text-align: center; color: var(--slate-500); padding: 36px 16px; font-size: 13px; }
 
         .pagination { display: flex; justify-content: flex-end; margin-top: 20px; font-size: 13px; }
@@ -163,12 +165,130 @@
 
         .footer { padding-top: 16px; color: var(--slate-500); font-size: 12px; text-align: center; border-top: 1px solid var(--slate-200); margin-top: 32px; }
 
+        /* ====== MODAL KONFIRMASI HAPUS & ANIMASI ====== */
+        .delete-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .delete-modal.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .delete-modal-content {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 440px;
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-modal);
+            text-align: center;
+            border: 1px solid var(--slate-200);
+            transform: scale(0.88) translateY(16px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .delete-modal.active .delete-modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .delete-icon-wrapper {
+            width: 56px;
+            height: 56px;
+            background: var(--danger-bg);
+            color: var(--danger);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 16px;
+        }
+
+        .delete-modal.active .delete-icon-wrapper {
+            animation: iconPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.08s both;
+        }
+
+        @keyframes iconPop {
+            0% {
+                transform: scale(0.4) rotate(-10deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .delete-icon-wrapper svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .delete-modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .delete-modal-desc {
+            font-size: 13px;
+            color: var(--slate-500);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .delete-modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .delete-modal-actions .btn {
+            flex: 1;
+        }
+
+        .btn-cancel {
+            background: #ffffff;
+            color: var(--slate-800);
+            border: 1px solid var(--slate-200);
+        }
+
+        .btn-cancel:hover {
+            background: var(--slate-100);
+        }
+
+        .btn-confirm-delete {
+            background: var(--danger);
+            color: #ffffff;
+            border: 1px solid var(--danger);
+        }
+
+        .btn-confirm-delete:hover {
+            background: var(--danger-hover);
+            border-color: var(--danger-hover);
+        }
+
         @media (max-width: 768px) {
             .app { flex-direction: column; }
             .sidebar { width: 100%; padding: 16px; }
             .topbar { padding: 0 16px; }
             .content { padding: 20px 16px; }
             .announcement-top { flex-direction: column; gap: 12px; }
+            .delete-modal-content { padding: 20px; }
         }
     </style>
 </head>
@@ -327,14 +447,12 @@
                             </span>
                         </div>
                         <div class="meta">
-                            Dibuat oleh: {{ $announcement->creator?->name ?? 'Admin' }} · {{ $announcement->created_at->format('d/m/Y H:i') }}
+                            Dibuat oleh: {{ $announcement->creator?->name ?? 'Admin' }} · {{ $announcement->created_at ? $announcement->created_at->format('d/m/Y H:i') : '-' }}
                         </div>
                         <div class="announcement-actions">
-                            <form method="POST" action="{{ route('admin.announcements.destroy', $announcement) }}" onsubmit="return confirm('Yakin ingin menghapus pengumuman ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus Pengumuman</button>
-                            </form>
+                            <button type="button" class="btn btn-danger" onclick="openDeleteModal('{{ route('admin.announcements.destroy', $announcement) }}')">
+                                Hapus Pengumuman
+                            </button>
                         </div>
                     </article>
                 @empty
@@ -344,12 +462,40 @@
                 <div class="pagination">{{ $announcements->links() }}</div>
             </section>
 
-            <footer class="footer">ALIVARE &copy; {{ now()->year }} — Panel Administrasi</footer>
+            <footer class="footer">ALIVARE &copy; {{ date('Y') }} — Panel Administrasi</footer>
         </section>
     </main>
 </div>
 
+<!-- MODAL KONFIRMASI HAPUS PENGUMUMAN BERANIMASI -->
+<div class="delete-modal" id="deleteConfirmModal" aria-hidden="true" role="dialog">
+    <div class="delete-modal-content">
+        <div class="delete-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                <line x1="10" y1="11" x2="10" y2="17"/>
+                <line x1="14" y1="11" x2="14" y2="17"/>
+            </svg>
+        </div>
+        <h3 class="delete-modal-title">Hapus Pengumuman?</h3>
+        <p class="delete-modal-desc">
+            Apakah Anda yakin ingin menghapus pengumuman ini? Data yang sudah dihapus tidak dapat dikembalikan.
+        </p>
+
+        <form id="deleteAnnouncementForm" method="POST" action="">
+            @csrf
+            @method('DELETE')
+            <div class="delete-modal-actions">
+                <button type="button" class="btn btn-cancel" onclick="closeDeleteModal()">Batal</button>
+                <button type="submit" class="btn btn-confirm-delete">Ya, Hapus</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
+// Account Dropdown Toggle
 const accBtn = document.getElementById('accountMenuButton');
 const accDrop = document.getElementById('accountDropdown');
 if (accBtn && accDrop) {
@@ -364,6 +510,39 @@ if (accBtn && accDrop) {
         accBtn.setAttribute('aria-expanded', 'false'); 
     });
 }
+
+// Custom Delete Modal Logic & Animation Control
+const deleteModal = document.getElementById('deleteConfirmModal');
+const deleteForm = document.getElementById('deleteAnnouncementForm');
+
+function openDeleteModal(actionUrl) {
+    if (!deleteModal || !deleteForm) return;
+    deleteForm.action = actionUrl;
+    deleteModal.classList.add('active');
+    deleteModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeDeleteModal() {
+    if (!deleteModal) return;
+    deleteModal.classList.remove('active');
+    deleteModal.setAttribute('aria-hidden', 'true');
+}
+
+// Tutup modal jika mengklik area backdrop di luar modal content
+if (deleteModal) {
+    deleteModal.addEventListener('click', function (e) {
+        if (e.target === deleteModal) {
+            closeDeleteModal();
+        }
+    });
+}
+
+// Tutup modal dengan tombol Escape
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && deleteModal && deleteModal.classList.contains('active')) {
+        closeDeleteModal();
+    }
+});
 </script>
 </body>
 </html>
