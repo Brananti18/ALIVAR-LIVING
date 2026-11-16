@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Room extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'property_id',
         'room_number',
@@ -14,8 +16,19 @@ class Room extends Model
         'status',
     ];
 
-    public function property(): BelongsTo
+    /**
+     * Relasi ke tabel properties.
+     */
+    public function property()
     {
         return $this->belongsTo(Property::class);
+    }
+
+    /**
+     * Relasi ke tabel tenants (penghuni).
+     */
+    public function tenant()
+    {
+        return $this->hasOne(Tenant::class);
     }
 }

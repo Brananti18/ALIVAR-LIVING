@@ -12,6 +12,7 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\TenantProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PenghuniController;
 
 // ========================================
 // SPLASH SCREEN
@@ -22,7 +23,7 @@ Route::get('/', function () {
         return match (Auth::user()->role) {
             'admin' => redirect()->route('dashboard.admin'),
             'pemilik' => redirect()->route('dashboard.pemilik'),
-            'user' => redirect()->route('dashboard.user'),
+            'user' => redirect()->route('penghuni.kamar'),
             default => redirect()->route('login'),
         };
     }
@@ -105,7 +106,7 @@ Route::get('/dashboard/pemilik/pengumuman', [AnnouncementController::class, 'own
     ->name('dashboard.pengumuman');
 
 Route::get('/dashboard/user', function () {
-    return view('dashboard.user');
+    return redirect()->route('penghuni.kamar');
 })
     ->middleware(['auth', 'role:user'])
     ->name('dashboard.user');
@@ -197,3 +198,15 @@ Route::delete('/dashboard/pemilik/tagihan/{bill}', [BillController::class, 'dest
 Route::get('/dashboard/pemilik/laporan-pendapatan', [IncomeReportController::class, 'index'])
     ->middleware(['auth', 'role:pemilik'])
     ->name('dashboard.laporan-pendapatan');
+
+// ========================================
+// PENGHUNI
+// ========================================
+Route::prefix('dashboard/penghuni')->name('penghuni.')->middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/kamar-kontrak', [PenghuniController::class, 'kamar'])->name('kamar');
+    Route::get('/pembayaran', [PenghuniController::class, 'pembayaran'])->name('pembayaran');
+    Route::post('/pembayaran/{bill}/bayar', [PenghuniController::class, 'bayar'])->name('bayar');
+    Route::get('/pengaduan', [PenghuniController::class, 'pengaduan'])->name('pengaduan');
+    Route::post('/pengaduan', [PenghuniController::class, 'storePengaduan'])->name('pengaduan.store');
+    Route::get('/pengumuman', [PenghuniController::class, 'pengumuman'])->name('pengumuman');
+});

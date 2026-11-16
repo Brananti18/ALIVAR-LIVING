@@ -104,7 +104,7 @@
         th { padding: 14px 24px; background: #fcfdfd; color: var(--slate-500); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--slate-200); white-space: nowrap; }
         td { padding: 16px 24px; color: var(--navy); font-size: 14px; border-bottom: 1px solid var(--slate-200); vertical-align: middle; }
         tbody tr { transition: background-color 0.2s; }
-        tbody tr:hover { background-color: var(--slate-50); }
+        tbody tr:hover { background-color: var(--slate-100); }
         tbody tr:last-child td { border-bottom: none; }
 
         .status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; white-space: nowrap; text-transform: capitalize; }
@@ -113,9 +113,11 @@
         .status.terisi { background: var(--primary-soft); color: var(--primary); }
         .status.maintenance { background: var(--warning-bg); color: #d97706; }
 
+        .tenant-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--navy); }
+        .tenant-empty { font-size: 13px; color: var(--slate-500); font-style: italic; }
+
         .actions { display: flex; gap: 8px; align-items: center; }
 
-        /* ====== ANIMASI MODAL FORM KAMAR ====== */
         .modal-backdrop {
             position: fixed; inset: 0; z-index: 100;
             background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
@@ -123,18 +125,14 @@
             opacity: 0; visibility: hidden; pointer-events: none;
             transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .modal-backdrop.open {
-            opacity: 1; visibility: visible; pointer-events: auto;
-        }
+        .modal-backdrop.open { opacity: 1; visibility: visible; pointer-events: auto; }
         .modal {
             background: var(--card-bg); width: 100%; max-width: 560px; padding: 28px;
             border-radius: var(--radius-xl); box-shadow: var(--shadow-modal); position: relative;
             transform: scale(0.88) translateY(16px);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .modal-backdrop.open .modal {
-            transform: scale(1) translateY(0);
-        }
+        .modal-backdrop.open .modal { transform: scale(1) translateY(0); }
         .modal h2 { margin: 0 0 4px; font-size: 18px; font-weight: 700; }
         .modal-heading { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
         .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
@@ -147,6 +145,7 @@
             transition: 0.2s; outline: none;
         }
         .field input:focus, .field select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .field small { font-size: 12px; color: var(--slate-500); }
         .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--slate-200); }
 
         .empty-state {
@@ -188,7 +187,7 @@
         <section class="page-heading">
             <div>
                 <h1>Daftar Kamar</h1>
-                <p class="subtitle">Kelola kamar dari properti yang Anda miliki.</p>
+                <p class="subtitle">Kelola kamar dan tetapkan penghuni agar tersinkronisasi otomatis.</p>
             </div>
             <button class="btn btn-primary" type="button" onclick="openAddModal()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
@@ -219,7 +218,7 @@
             <div class="filters">
                 <div class="filter-search-wrapper">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                    <input id="searchRoom" type="search" placeholder="Cari nomor kamar atau properti...">
+                    <input id="searchRoom" type="search" placeholder="Cari nomor kamar, properti, atau nama penghuni...">
                 </div>
                 <select id="filterProperty">
                     <option value="">Semua Properti</option>
@@ -241,6 +240,7 @@
                         <tr>
                             <th>Nomor Kamar</th>
                             <th>Properti</th>
+                            <th>Penghuni</th>
                             <th>Harga Sewa</th>
                             <th>Status</th>
                             <th>Aksi</th>
@@ -248,11 +248,22 @@
                     </thead>
                     <tbody>
                     @forelse ($rooms as $room)
+                        @php
+                            $assignedTenant = $room->tenant;
+                        @endphp
                         <tr data-number="{{ strtolower($room->room_number) }}"
                             data-property="{{ $room->property->name }}"
+                            data-tenant="{{ strtolower($assignedTenant?->name ?? '') }}"
                             data-status="{{ $room->status }}">
                             <td><strong>{{ $room->room_number }}</strong></td>
                             <td>{{ $room->property->name }}</td>
+                            <td>
+                                @if ($assignedTenant)
+                                    <span class="tenant-badge">{{ $assignedTenant->name }}</span>
+                                @else
+                                    <span class="tenant-empty">Belum ditetapkan</span>
+                                @endif
+                            </td>
                             <td>Rp {{ number_format($room->price, 0, ',', '.') }}</td>
                             <td>
                                 <span class="status {{ $room->status }}">
@@ -262,7 +273,14 @@
                             <td>
                                 <div class="actions">
                                     <button type="button" class="btn btn-secondary btn-sm"
-                                        onclick="openEditModal('{{ $room->id }}', @js($room->room_number), '{{ $room->price }}', '{{ $room->status }}')">
+                                        onclick="openEditModal(
+                                            '{{ $room->id }}',
+                                            @js($room->room_number),
+                                            '{{ $room->price }}',
+                                            '{{ $room->status }}',
+                                            '{{ $assignedTenant?->id ?? '' }}',
+                                            @js($assignedTenant?->name ?? '')
+                                        )">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Edit
                                     </button>
 
@@ -275,7 +293,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="empty" style="text-align:center; padding: 36px; color: var(--slate-500);">
+                            <td colspan="6" class="empty" style="text-align:center; padding: 36px; color: var(--slate-500);">
                                 Belum ada data kamar. Klik <strong>Tambah Kamar</strong> untuk mulai menambahkan.
                             </td>
                         </tr>
@@ -293,13 +311,13 @@
     </main>
 </div>
 
-<!-- MODAL TAMBAH / EDIT KAMAR -->
+<!-- MODAL TAMBAH / EDIT KAMAR & PENETAPAN PENGHUNI -->
 <div class="modal-backdrop" id="roomModal">
     <div class="modal">
         <div class="modal-heading">
             <div>
                 <h2 id="modalTitle">Tambah Kamar</h2>
-                <p class="subtitle" style="font-size:13px; margin-top:2px;">Isi informasi kamar di bawah ini.</p>
+                <p class="subtitle" style="font-size:13px; margin-top:2px;">Data kamar dan penghuni akan langsung tersinkron ke akun penghuni.</p>
             </div>
             <button type="button" onclick="closeRoomModal()" style="border:0; background:transparent; font-size:20px; color:var(--slate-500); cursor:pointer;">&times;</button>
         </div>
@@ -330,6 +348,17 @@
                 </div>
 
                 <div class="field full">
+                    <label for="tenant_id">Tetapkan Penghuni (Opsional)</label>
+                    <select name="tenant_id" id="tenant_id" onchange="syncStatusWithTenant()">
+                        <option value="">-- Kosongkan / Tanpa Penghuni --</option>
+                        @foreach ($availableTenants ?? [] as $t)
+                            <option value="{{ $t->id }}">{{ $t->name }} ({{ $t->email ?? $t->phone ?? 'Tanpa kontak' }})</option>
+                        @endforeach
+                    </select>
+                    <small>Memilih penghuni akan otomatis mengisi <code>room_id</code> pada akun penghuni tersebut.</small>
+                </div>
+
+                <div class="field full">
                     <label for="room_status">Status Kamar</label>
                     <select name="status" id="room_status" required>
                         <option value="tersedia">Tersedia</option>
@@ -351,26 +380,61 @@
     const roomModal = document.getElementById('roomModal');
     const roomForm = document.getElementById('roomForm');
     const methodField = document.getElementById('methodField');
+    const tenantSelect = document.getElementById('tenant_id');
+    const statusSelect = document.getElementById('room_status');
+
+    function syncStatusWithTenant() {
+        if (tenantSelect.value !== '') {
+            statusSelect.value = 'terisi';
+        } else if (statusSelect.value === 'terisi') {
+            statusSelect.value = 'tersedia';
+        }
+    }
+
+    function removeTempTenantOption() {
+        const tempOpt = tenantSelect.querySelector('option[data-temp="true"]');
+        if (tempOpt) tempOpt.remove();
+    }
 
     function openAddModal() {
         roomForm.reset();
+        removeTempTenantOption();
         roomForm.action = @js(route('rooms.store'));
         methodField.innerHTML = '';
         document.getElementById('property_id').disabled = false;
+        document.getElementById('property_id').required = true;
+        tenantSelect.value = '';
+        statusSelect.value = 'tersedia';
         document.getElementById('modalTitle').textContent = 'Tambah Kamar';
         document.getElementById('saveButton').textContent = 'Simpan Kamar';
         roomModal.classList.add('open');
     }
 
-    function openEditModal(id, number, price, status) {
+    function openEditModal(id, number, price, status, tenantId = '', tenantName = '') {
         roomForm.reset();
+        removeTempTenantOption();
         roomForm.action = @js(url('/dashboard/pemilik/kamar')) + '/' + encodeURIComponent(id);
         methodField.innerHTML = '<input type="hidden" name="_method" value="PUT">';
         document.getElementById('property_id').disabled = true;
         document.getElementById('property_id').required = false;
         document.getElementById('room_number').value = number;
         document.getElementById('price').value = price;
-        document.getElementById('room_status').value = status;
+        statusSelect.value = status;
+
+        if (tenantId) {
+            let exists = Array.from(tenantSelect.options).some(opt => opt.value === String(tenantId));
+            if (!exists) {
+                const opt = document.createElement('option');
+                opt.value = tenantId;
+                opt.textContent = tenantName + ' (Penghuni saat ini)';
+                opt.dataset.temp = 'true';
+                tenantSelect.appendChild(opt);
+            }
+            tenantSelect.value = String(tenantId);
+        } else {
+            tenantSelect.value = '';
+        }
+
         document.getElementById('modalTitle').textContent = 'Edit Kamar';
         document.getElementById('saveButton').textContent = 'Simpan Perubahan';
         roomModal.classList.add('open');
@@ -378,6 +442,7 @@
 
     function closeRoomModal() {
         roomModal.classList.remove('open');
+        removeTempTenantOption();
         document.getElementById('property_id').disabled = false;
         document.getElementById('property_id').required = true;
     }
@@ -397,7 +462,8 @@
 
         document.querySelectorAll('#roomTable tbody tr[data-number]').forEach(row => {
             const matchText = row.dataset.number.includes(query) ||
-                row.dataset.property.toLowerCase().includes(query);
+                row.dataset.property.toLowerCase().includes(query) ||
+                row.dataset.tenant.includes(query);
             const matchProperty = !property || row.dataset.property === property;
             const matchStatus = !status || row.dataset.status === status;
             const show = matchText && matchProperty && matchStatus;
