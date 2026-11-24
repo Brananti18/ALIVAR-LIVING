@@ -9,12 +9,13 @@ class Room extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'property_id',
-        'room_number',
-        'price',
-        'status',
-    ];
+   protected $fillable = [
+    'property_id',
+    'room_number',
+    'price',
+    'photo',
+    'status',
+];
 
     /**
      * Relasi ke tabel properties.

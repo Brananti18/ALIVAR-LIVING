@@ -29,12 +29,12 @@ class LoginController extends Controller
 
         $user = Auth::guard('web')->user();
 
-        return match ($user->role) {
-            'admin' => redirect()->route('dashboard.admin'),
-            'pemilik' => redirect()->route('dashboard.pemilik'),
-            'user' => redirect()->route('dashboard.user'),
-            default => $this->logoutInvalidRole($request),
-        };
+       return match ($user->role) {
+    'admin' => redirect()->route('dashboard.admin'),
+    'pemilik' => redirect()->route('dashboard.kamar'),
+    'user' => redirect()->route('dashboard.user'),
+    default => $this->logoutInvalidRole($request),
+};
     }
 
     private function logoutInvalidRole(Request $request)

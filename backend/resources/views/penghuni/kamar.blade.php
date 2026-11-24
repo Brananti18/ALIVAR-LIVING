@@ -51,9 +51,43 @@
     </section>
 
     <section class="grid-2">
-        <div class="panel">
-            <div class="panel-head"><h2>Detail Kamar</h2></div>
-            <dl class="detail-list">
+       <div class="panel">
+    <div class="panel-head">
+        <h2>Detail Kamar</h2>
+    </div>
+
+    {{-- Foto kamar --}}
+    <div style="padding: 16px 20px;">
+        @if ($room->photo)
+            <img
+                src="{{ asset('storage/' . $room->photo) }}"
+                alt="Foto kamar {{ $room->room_number }}"
+                style="
+                    width: 100%;
+                    max-height: 280px;
+                    object-fit: cover;
+                    border-radius: 12px;
+                    display: block;
+                "
+            >
+        @else
+            <div style="
+                width: 100%;
+                min-height: 150px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f1f5f9;
+                color: #64748b;
+                border-radius: 12px;
+                font-size: 13px;
+            ">
+                Foto kamar belum tersedia
+            </div>
+        @endif
+    </div>
+
+    <dl class="detail-list">
                 <div class="detail-row"><dt>Properti</dt><dd>{{ $property?->name ?? '-' }}</dd></div>
                 <div class="detail-row"><dt>Alamat</dt><dd>{{ $property?->address ?? '-' }}</dd></div>
                 <div class="detail-row"><dt>Nomor kamar</dt><dd>{{ $room->room_number }}</dd></div>

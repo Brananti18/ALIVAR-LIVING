@@ -1,10 +1,13 @@
 
 <div class="top-actions">
     <!-- Tombol Pengumuman -->
-    <a href="{{ route('dashboard.pengumuman') }}"
-       class="icon-button"
-       aria-label="Buka Pengumuman"
-       title="Pengumuman">
+<a href="{{ request()->routeIs('penghuni.*')
+        ? route('penghuni.pengumuman')
+        : route('dashboard.pengumuman') }}"
+   class="icon-button"
+   aria-label="Buka Pengumuman"
+   title="Pengumuman">
+
         <svg viewBox="0 0 24 24"
              fill="none"
              stroke="currentColor"

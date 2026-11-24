@@ -187,7 +187,7 @@
         <section class="page-heading">
             <div>
                 <h1>Daftar Penyewa</h1>
-                <p class="subtitle">Kelola data penyewa properti yang Anda miliki.</p>
+               <p class="subtitle">Kelola data penyewa dan kamar yang ditempati.</p>
             </div>
             <button class="btn btn-primary" type="button" onclick="openAddModal()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
@@ -233,7 +233,6 @@
                         <tr>
                             <th>Nama Penyewa</th>
                             <th>Nomor Kamar</th>
-                            <th>Properti</th>
                             <th>Telepon</th>
                             <th>Status</th>
                             <th>Aksi</th>
@@ -242,14 +241,13 @@
                     <tbody id="tenantRows">
                         @forelse ($tenants as $tenant)
                             <tr class="tenant-row"
-                                data-search="{{ strtolower($tenant->name.' '.$tenant->phone.' '.($tenant->room->room_number ?? '').' '.($tenant->room->property->name ?? '')) }}"
+                               data-search="{{ strtolower($tenant->name.' '.$tenant->phone.' '.($tenant->room->room_number ?? '')) }}"
                                 data-status="{{ strtolower($tenant->status) }}">
                                 <td>
                                     <strong>{{ $tenant->name }}</strong>
                                     <div class="subtitle" style="font-size:12px; margin-top:2px;">{{ $tenant->email ?: 'Email belum diisi' }}</div>
                                 </td>
                                 <td>{{ $tenant->room->room_number ?? '-' }}</td>
-                                <td>{{ $tenant->room->property->name ?? '-' }}</td>
                                 <td>{{ $tenant->phone }}</td>
                                 <td>
                                     <span class="status {{ strtolower($tenant->status) }}">
@@ -280,13 +278,13 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" style="text-align:center; padding: 36px; color: var(--slate-500);">
+                                <td colspan="5" style="text-align:center; padding: 36px; color: var(--slate-500);">
                                     Belum ada data penyewa. Klik <strong>Tambah Penyewa</strong> untuk mulai menambahkan.
                                 </td>
                             </tr>
                         @endforelse
                         <tr id="tenantNoResults" style="display:none">
-                            <td colspan="6" style="padding:0; border:0;">
+                            <td colspan="5" style="padding:0; border:0;">
                                 <div class="empty-state">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                                     <strong>Pencarian tidak ditemukan</strong>
@@ -322,7 +320,7 @@
                     <option value="">Pilih kamar</option>
                     @foreach ($rooms as $room)
                         <option value="{{ $room->id }}">
-                            {{ $room->property->name ?? 'Properti' }} — Kamar {{ $room->room_number }}
+                           Kamar {{ $room->room_number }}
                         </option>
                     @endforeach
                 </select>

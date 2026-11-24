@@ -6,6 +6,7 @@ use App\Models\Property;
 use App\Models\Room;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
@@ -26,7 +27,6 @@ class RoomController extends Controller
             ->latest()
             ->get();
 
-        // Ambil penghuni yang belum memiliki kamar (room_id = null)
         $availableTenants = Tenant::with('user')
             ->whereNull('room_id')
             ->get();
@@ -39,7 +39,7 @@ class RoomController extends Controller
     }
 
     /**
-     * Menyimpan kamar baru & sinkronisasi ke penghuni/properti.
+     * Menyimpan kamar baru.
      */
     public function store(Request $request)
     {
@@ -49,6 +49,7 @@ class RoomController extends Controller
             'price'       => ['required', 'numeric', 'min:0'],
             'status'      => ['required', 'in:tersedia,terisi,maintenance'],
             'tenant_id'   => ['nullable', 'integer', 'exists:tenants,id'],
+            'photo'       => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ]);
 
         $property = Property::where('user_id', auth()->id())
@@ -66,19 +67,22 @@ class RoomController extends Controller
                 ->withInput();
         }
 
-        // Jika penghuni dipilih, pastikan status kamar otomatis terisi
         if (!empty($validated['tenant_id'])) {
             $validated['status'] = 'terisi';
         }
+
+        $photoPath = $request->hasFile('photo')
+            ? $request->file('photo')->store('rooms', 'public')
+            : null;
 
         $room = Room::create([
             'property_id' => $validated['property_id'],
             'room_number' => $validated['room_number'],
             'price'       => $validated['price'],
+            'photo'       => $photoPath,
             'status'      => $validated['status'],
         ]);
 
-        // Tetapkan kamar ke penghuni jika dipilih
         if (!empty($validated['tenant_id'])) {
             Tenant::where('id', $validated['tenant_id'])->update([
                 'room_id' => $room->id,
@@ -93,7 +97,7 @@ class RoomController extends Controller
     }
 
     /**
-     * Memperbarui kamar & sinkronisasi ke penghuni/properti.
+     * Memperbarui kamar.
      */
     public function update(Request $request, Room $room)
     {
@@ -104,6 +108,7 @@ class RoomController extends Controller
             'price'       => ['required', 'numeric', 'min:0'],
             'status'      => ['required', 'in:tersedia,terisi,maintenance'],
             'tenant_id'   => ['nullable', 'integer', 'exists:tenants,id'],
+            'photo'       => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ]);
 
         $exists = Room::where('property_id', $room->property_id)
@@ -119,24 +124,46 @@ class RoomController extends Controller
                 ->withInput();
         }
 
-        if (!empty($validated['tenant_id'])) {
-            $validated['status'] = 'terisi';
-        } elseif ($validated['status'] === 'terisi') {
-            $validated['status'] = 'tersedia';
+        $tenantId = $validated['tenant_id'] ?? null;
+
+        if ($validated['status'] !== 'terisi') {
+            $tenantId = null;
         }
+
+        if ($validated['status'] === 'terisi' && !$tenantId) {
+            return back()
+                ->withErrors([
+                    'tenant_id' => 'Pilih penghuni untuk kamar yang berstatus terisi.',
+                ])
+                ->withInput();
+        }
+
+        // Simpan foto baru jika ada upload.
+        $photoPath = $room->photo;
+
+        if ($request->hasFile('photo')) {
+            $newPhotoPath = $request->file('photo')->store('rooms', 'public');
+
+            if ($room->photo) {
+                Storage::disk('public')->delete($room->photo);
+            }
+
+            $photoPath = $newPhotoPath;
+        }
+
+        // Lepaskan penghuni lama.
+        Tenant::where('room_id', $room->id)
+            ->update(['room_id' => null]);
 
         $room->update([
             'room_number' => $validated['room_number'],
             'price'       => $validated['price'],
             'status'      => $validated['status'],
+            'photo'       => $photoPath,
         ]);
 
-        // Lepas penghuni lama yang menempati kamar ini
-        Tenant::where('room_id', $room->id)->update(['room_id' => null]);
-
-        // Tetapkan penghuni baru jika dipilih
-        if (!empty($validated['tenant_id'])) {
-            Tenant::where('id', $validated['tenant_id'])->update([
+        if ($tenantId) {
+            Tenant::where('id', $tenantId)->update([
                 'room_id' => $room->id,
             ]);
         }
@@ -149,7 +176,7 @@ class RoomController extends Controller
     }
 
     /**
-     * Menghapus kamar & melepaskan penghuni agar kembali ke empty state.
+     * Menghapus kamar dan melepaskan penghuni.
      */
     public function destroy(Room $room)
     {
@@ -157,8 +184,12 @@ class RoomController extends Controller
 
         $property = $room->property;
 
-        // Pastikan penghuni kembali "tanpa kamar" (room_id = null)
-        Tenant::where('room_id', $room->id)->update(['room_id' => null]);
+        Tenant::where('room_id', $room->id)
+            ->update(['room_id' => null]);
+
+        if ($room->photo) {
+            Storage::disk('public')->delete($room->photo);
+        }
 
         $room->delete();
 
@@ -170,12 +201,15 @@ class RoomController extends Controller
     }
 
     /**
-     * Sinkronisasi jumlah kamar terisi ke tabel properties.
+     * Sinkronisasi jumlah kamar ke properti.
      */
     private function syncPropertyRoomCounts(Property $property): void
     {
-        $occupiedCount = $property->rooms()->where('status', 'terisi')->count();
-        $totalCount    = $property->rooms()->count();
+        $occupiedCount = $property->rooms()
+            ->where('status', 'terisi')
+            ->count();
+
+        $totalCount = $property->rooms()->count();
 
         $property->update([
             'occupied_rooms' => $occupiedCount,
@@ -184,7 +218,7 @@ class RoomController extends Controller
     }
 
     /**
-     * Memastikan kamar milik properti pengguna yang login.
+     * Memastikan kamar milik pemilik yang login.
      */
     private function authorizeRoom(Room $room): void
     {

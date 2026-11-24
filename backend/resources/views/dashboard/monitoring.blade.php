@@ -195,6 +195,20 @@
             </span>
             <span>Pengumuman</span>
         </a>
+
+        <a href="{{ route('admin.reimbursements.index') }}"
+   class="menu-item {{ request()->routeIs('admin.reimbursements.*') ? 'active' : '' }}">
+    <span class="menu-icon">
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2"/>
+            <path d="M7 9h10M7 13h6M7 17h4"/>
+        </svg>
+    </span>
+    <span>Reimbursement</span>
+</a>
+
     </aside>
 
     <!-- MAIN -->

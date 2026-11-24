@@ -239,6 +239,7 @@
                     <thead>
                         <tr>
                             <th>Nomor Kamar</th>
+                            <th>Foto</th>
                             <th>Properti</th>
                             <th>Penghuni</th>
                             <th>Harga Sewa</th>
@@ -255,8 +256,19 @@
                             data-property="{{ $room->property->name }}"
                             data-tenant="{{ strtolower($assignedTenant?->name ?? '') }}"
                             data-status="{{ $room->status }}">
-                            <td><strong>{{ $room->room_number }}</strong></td>
-                            <td>{{ $room->property->name }}</td>
+                           <td><strong>{{ $room->room_number }}</strong></td>
+<td>
+    @if ($room->photo)
+        <img
+            src="{{ asset('storage/' . $room->photo) }}"
+            alt="Foto kamar {{ $room->room_number }}"
+            style="width:75px;height:55px;object-fit:cover;border-radius:8px;"
+        >
+    @else
+        <span class="tenant-empty">Belum ada foto</span>
+    @endif
+</td>
+<td>{{ $room->property->name }}</td>
                             <td>
                                 @if ($assignedTenant)
                                     <span class="tenant-badge">{{ $assignedTenant->name }}</span>
@@ -293,7 +305,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="empty" style="text-align:center; padding: 36px; color: var(--slate-500);">
+                           <td colspan="7" class="empty" style="text-align:center; padding: 36px; color: var(--slate-500);">
                                 Belum ada data kamar. Klik <strong>Tambah Kamar</strong> untuk mulai menambahkan.
                             </td>
                         </tr>
@@ -322,7 +334,10 @@
             <button type="button" onclick="closeRoomModal()" style="border:0; background:transparent; font-size:20px; color:var(--slate-500); cursor:pointer;">&times;</button>
         </div>
 
-        <form id="roomForm" method="POST" action="{{ route('rooms.store') }}">
+       <form id="roomForm"
+      method="POST"
+      enctype="multipart/form-data"
+      action="{{ route('rooms.store') }}">
             @csrf
             <div id="methodField"></div>
 
@@ -346,6 +361,20 @@
                     <label for="price">Harga Sewa / Bulan (Rp)</label>
                     <input type="number" name="price" id="price" min="0" step="1" required placeholder="Contoh: 2000000">
                 </div>
+
+<div class="field full">
+    <label for="photo">Foto Kamar</label>
+    <input
+        type="file"
+        name="photo"
+        id="photo"
+        accept="image/jpeg,image/png,image/webp"
+    >
+    <small>
+        Format JPG, PNG, WEBP. Maksimal 5 MB.
+        Saat edit, kosongkan jika ingin mempertahankan foto lama.
+    </small>
+</div>
 
                 <div class="field full">
                     <label for="tenant_id">Tetapkan Penghuni (Opsional)</label>

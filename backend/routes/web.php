@@ -13,6 +13,7 @@ use App\Http\Controllers\TenantProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenghuniController;
+use App\Http\Controllers\ReimbursementController;
 
 // ========================================
 // SPLASH SCREEN
@@ -91,6 +92,36 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::delete('/dashboard/admin/pengumuman/{announcement}', [AnnouncementController::class, 'destroy'])
         ->name('admin.announcements.destroy');
+});
+
+// ========================================
+// REIMBURSEMENT ADMIN
+// ========================================
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboard/admin/reimbursement', [ReimbursementController::class, 'index'])
+        ->name('admin.reimbursements.index');
+
+    Route::post('/dashboard/admin/reimbursement', [ReimbursementController::class, 'store'])
+        ->name('admin.reimbursements.store');
+
+    Route::put('/dashboard/admin/reimbursement/{reimbursement}/keputusan', [ReimbursementController::class, 'decide'])
+        ->name('admin.reimbursements.decide');
+
+    Route::put('/dashboard/admin/reimbursement/{reimbursement}/penyelesaian', [ReimbursementController::class, 'complete'])
+        ->name('admin.reimbursements.complete');
+});
+
+// ========================================
+// REIMBURSEMENT PEMILIK
+// ========================================
+
+Route::middleware(['auth', 'role:pemilik'])->group(function () {
+    Route::get('/dashboard/pemilik/reimbursement', [ReimbursementController::class, 'ownerIndex'])
+        ->name('owner.reimbursements.index');
+
+    Route::put('/dashboard/pemilik/reimbursement/{reimbursement}/bayar', [ReimbursementController::class, 'markPaid'])
+        ->name('owner.reimbursements.paid');
 });
 
 // ========================================

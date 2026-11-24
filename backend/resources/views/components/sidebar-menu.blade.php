@@ -1,3 +1,4 @@
+
 <style>
     .nav-label {
         padding: 8px 12px;
@@ -66,30 +67,29 @@
 @if (!request()->routeIs('profile.edit'))
     <div class="nav-label">Menu Utama</div>
 
-    <a href="{{ route('dashboard.pemilik') }}" class="nav-link {{ request()->routeIs('dashboard.pemilik') ? 'active' : '' }}">
+    {{-- KAMAR KOST --}}
+    <a href="{{ route('dashboard.kamar') }}"
+       class="nav-link {{ request()->routeIs('dashboard.kamar') ? 'active' : '' }}">
         <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 21V7l9-4 9 4v14"/><path d="M7 21v-4h4v4M7 9h2m6 0h2m-10 4h2m6 0h2"/>
-            </svg>
-        </span>
-        <span>Properti</span>
-    </a>
-
-    <a href="{{ route('dashboard.kamar') }}" class="nav-link {{ request()->routeIs('dashboard.kamar') ? 'active' : '' }}">
-        <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M2 4v16"/>
                 <path d="M2 8h18a2 2 0 0 1 2 2v10"/>
                 <path d="M2 17h20"/>
                 <circle cx="6" cy="11" r="2"/>
             </svg>
         </span>
-        <span>Kamar</span>
+        <span>Kamar Kost</span>
     </a>
 
-    <a href="{{ route('dashboard.penyewa') }}" class="nav-link {{ request()->is('*penyewa*') ? 'active' : '' }}">
+    {{-- PENYEWA --}}
+    <a href="{{ route('dashboard.penyewa') }}"
+       class="nav-link {{ request()->is('*penyewa*') ? 'active' : '' }}">
         <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                 <circle cx="9" cy="7" r="4"/>
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
@@ -99,9 +99,13 @@
         <span>Penyewa</span>
     </a>
 
-    <a href="{{ route('dashboard.tagihan') }}" class="nav-link {{ request()->routeIs('dashboard.tagihan') ? 'active' : '' }}">
+    {{-- TAGIHAN --}}
+    <a href="{{ route('dashboard.tagihan') }}"
+       class="nav-link {{ request()->routeIs('dashboard.tagihan') ? 'active' : '' }}">
         <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                 <polyline points="14 2 14 8 20 8"/>
                 <line x1="16" y1="13" x2="8" y2="13"/>
@@ -112,9 +116,13 @@
         <span>Tagihan</span>
     </a>
 
-    <a href="{{ route('dashboard.laporan-pendapatan') }}" class="nav-link {{ request()->routeIs('dashboard.laporan-pendapatan') ? 'active' : '' }}">
+    {{-- LAPORAN PENDAPATAN --}}
+    <a href="{{ route('dashboard.laporan-pendapatan') }}"
+       class="nav-link {{ request()->routeIs('dashboard.laporan-pendapatan') ? 'active' : '' }}">
         <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 3v18h18"/>
                 <path d="M8 16v-5"/>
                 <path d="M13 16V8"/>
@@ -124,4 +132,17 @@
         <span>Laporan Pendapatan</span>
     </a>
 
+    {{-- REIMBURSEMENT --}}
+    <a href="{{ route('owner.reimbursements.index') }}"
+       class="nav-link {{ request()->routeIs('owner.reimbursements.*') ? 'active' : '' }}">
+        <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="16" rx="2"/>
+                <path d="M7 9h10M7 13h6M7 17h4"/>
+            </svg>
+        </span>
+        <span>Reimbursement</span>
+    </a>
 @endif
